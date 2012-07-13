@@ -47,4 +47,5 @@ h2. Example Application
 
 In samples-and-tests(https://github.com/dpeixoto/PLint/tree/master/samples-and-tests) you can find an example application using Plint named xcoisas,it simulates an application where users can buy and sell several items.
 The URL to enter test application is: @http:\\xcoisas.lvh.me:9000@
+
 Go to LS so you can change the access configurations of the users from xcoisas to the several resources.
