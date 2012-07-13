@@ -1,6 +1,6 @@
 h1. PLint
 
-Plint is a connector module to the LagoonSecurity application (LS), which is an authentication/autorization system developed by XLM. 
+Plint is a connector module to the LagoonSecurity (LS) application, which is an authentication/autorization system developed by XLM. 
 It allows you to easily manage your applciations authentication and autorization.
 
 h2. Installation
@@ -14,7 +14,7 @@ require:
 
 And then execute: 
   @$ play deps@
-  @$ play eclipsify@
+Don't forget to execute @$ play eclipsify@ to enable it in eclipse.
 
 h2. Configuration
 
@@ -23,43 +23,19 @@ After install Plint, in order to use it in your Play! Application, the following
 <pre>
 lint.protocol=http // Comunication Protocol with LS
 lint.port=8080 // Comunication Port with LS
-lint.baseUrl=subdomain.lagoonsecurity.dyndns.org // LS Base access URL
+lint.baseUrl=subdomain.lagoonsecurity.dyndns.org // Provided LS Base access URL
 lint.login=loginLagoon // Provided LS Login
 lint.password=passwordLagoon // Provided LS password
 </pre>
 
-The baseUrl is the location of LS, where the subdomain is the one you registered (p.ex. xlm.lagoonsecurity.dyndns.org).
-After the registration of your Organization, and respective subdomain, will be provided a login and a password.
+The baseUrl, login and password will be provided after registration.
 
 h2. How to use
 
-The following list enumerates the available methods, spcifying input parameteres.
-*Note* If any of the following mehtods generates an error, a LintException is thrown.
+To check the available methods of Plint visit: https://github.com/dpeixoto/PLint/blob/master/documentation/manual/home.textile .
 
-* Authentication
-** "sanitycheck()"
-** "identifier()"
-* Application Management
-** "showApp()"
-* Context Management
-** "getContexts()"
-** "createContext(String name, String activationUrl, String url, String descritpion, boolean copyContext)"
-** "updateContext(String newName, String activationUrl, String url, String description, String oldName)"
-** "showContext(String contextName)"
-** "deleteContext(String contextName)"
-* Profile Management
-** "getProfiles()"
-* User Management
-** "login(String user, String password, String context)"
-** "logout(Long userID, String context)"
-** "createUser(String login, String email, String name, String context)"
-** "createUser(String login, String email, String name, boolean ghost, String[] profiles, String context)"
-** "registerUser(String password, String token, String context)"
-** "activateUser(Long userID, String context)"
-** "deactivateUser(Long userID, String context)"
-** "reactivateUser(Long userID, String context)"
-** "getUsers(String context)"
-** "showUser(Long userID, String context)"
-** "updateUser(Long userID, String login, String email, String name, boolean ghost, String[] profiles, String context)"
-** "updateUser(Long userID, String login, String email, String name, String context)"
-** "getPermissions(Long userID, String context)"
+h2. Example Application
+
+In samples-and-tests(https://github.com/dpeixoto/PLint/tree/master/samples-and-tests) you can find an example application using Plint named xcoisas,it simulates an application where users can buy and sell several items.
+
+Go to LS so you can change the access configurations of the users from xcoisas to the several resources.
