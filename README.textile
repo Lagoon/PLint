@@ -5,7 +5,7 @@ It allows you to easily manage your applciations authentication and autorization
 
 h2. Installation
 
-After downloading the module, add to dependencies.yml of your application:
+After downloading the module, add to <b>dependencies.yml</b> of your application:
 
 <pre>
 require:
@@ -16,17 +16,22 @@ And then execute:
   @$ play deps@
   @$ play eclipsify@
 
-h2. How to use
+h2. Configuration
 
-After install Plint, in order to use it in your Play! Application, the following configurations must be made on application.conf:
+After install Plint, in order to use it in your Play! Application, the following configurations must be made on <b>application.conf</b>:
 
 <pre>
 lint.protocol=http // Comunication Protocol with LS
 lint.port=8080 // Comunication Port with LS
-lint.baseUrl=xlm.lagoon-ci.olimpo.local // LS Base access URL
+lint.baseUrl=subdomain.lagoonsecurity.dyndns.org // LS Base access URL
 lint.login=loginLagoon // Provided LS Login
 lint.password=passwordLagoon // Provided LS password
 </pre>
+
+The baseUrl is the location of LS, where the subdomain is the one you registered (p.ex. xlm.lagoonsecurity.dyndns.org).
+After the registration of your Organization, and respective subdomain, will be provided a login and a password.
+
+h2. How to use
 
 The following list enumerates the available methods, spcifying input parameteres.
 *Note* If any of the following mehtods generates an error, a LintException is thrown.
