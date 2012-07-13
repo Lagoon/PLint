@@ -39,7 +39,7 @@ public class Bootstrap extends Job {
 				admin = gson.fromJson(resp, Context.class);
 				admin.save();
 
-				resp = LintRobot.createUser("admin", "lagoone@xlm.pt", "Administrator", false, profiles, "admin");
+				resp = LintRobot.createUser("admin", "lagoon@xlm.pt", "Administrator", false, profiles, "admin");
 				UserLagoon userLagoon = UserLagoon.findByExternalID(resp.getAsJsonObject().get("id").getAsLong());
 				User user = new User(userLagoon, admin);
 				user.save();
