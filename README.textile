@@ -5,13 +5,24 @@ It allows you to easily manage your applciations authentication and autorization
 
 h2. Installation
 
+After downloading the module, add to dependencies.yml of your application:
+
+@require:
+  - yourModulesSource -> plint 0.1alpha5@
+
+And then execute: 
+  @$ play deps@
+  @$ play eclipsify@
+
 h2. How to use
 
 After install Plint, in order to use it in your Play! Application, the following configurations must be made on application.conf:
 
+<pre>
 lint.protocol=http // Comunication Protocol with LS
 lint.port=8080 // Comunication Port with LS
 lint.baseUrl=xlm.lagoon-ci.olimpo.local // LS Base access URL
 lint.login=loginLagoon // Provided LS Login
 lint.password=passwordLagoon // Provided LS password
+</pre>
 
