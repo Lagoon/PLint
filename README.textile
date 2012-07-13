@@ -6,3 +6,5 @@ It allows you to easily manage your applciations authentication and autorization
 h2. How to use
 
 ... coming soon
+
+h2. Installation
