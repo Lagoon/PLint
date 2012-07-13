@@ -50,7 +50,7 @@ public class Contexts extends Application {
 			flash.error(Messages.get("scaffold.validation"));
 			render("@create", entity);
 		}
-		//Send create request
+		// Send create request
 		JsonElement resp = LintRobot.createContext(entity.name, null, null, entity.description, false);
 		Gson gson = new Gson();
 		Context context = gson.fromJson(resp, Context.class);
@@ -65,7 +65,7 @@ public class Contexts extends Application {
 			render("@edit", entity);
 		}
 
-		//Send Update request
+		// Send Update request
 		LintRobot.updateContext(entity.name, null, null, entity.description, old);
 		entity.merge();
 		entity.save();
