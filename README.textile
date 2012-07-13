@@ -7,8 +7,10 @@ h2. Installation
 
 After downloading the module, add to dependencies.yml of your application:
 
-@require:
-  - yourModulesSource -> plint 0.1alpha5@
+<pre>
+require:
+  - yourModulesSource -> plint 0.1alpha5
+</pre>
 
 And then execute: 
   @$ play deps@
@@ -26,3 +28,33 @@ lint.login=loginLagoon // Provided LS Login
 lint.password=passwordLagoon // Provided LS password
 </pre>
 
+The following list enumerates the available methods, spcifying input parameteres.
+*Note* If any of the following mehtods generates an error, a LintException is thrown.
+
+* Authentication
+** "sanitycheck()"
+** "identifier()"
+* Application Management
+** "showApp()"
+* Context Management
+** "getContexts()"
+** "createContext(String name, String activationUrl, String url, String descritpion, boolean copyContext)"
+** "updateContext(String newName, String activationUrl, String url, String description, String oldName)"
+** "showContext(String contextName)"
+** "deleteContext(String contextName)"
+* Profile Management
+** "getProfiles()"
+* User Management
+** "login(String user, String password, String context)"
+** "logout(Long userID, String context)"
+** "createUser(String login, String email, String name, String context)"
+** "createUser(String login, String email, String name, boolean ghost, String[] profiles, String context)"
+** "registerUser(String password, String token, String context)"
+** "activateUser(Long userID, String context)"
+** "deactivateUser(Long userID, String context)"
+** "reactivateUser(Long userID, String context)"
+** "getUsers(String context)"
+** "showUser(Long userID, String context)"
+** "updateUser(Long userID, String login, String email, String name, boolean ghost, String[] profiles, String context)"
+** "updateUser(Long userID, String login, String email, String name, String context)"
+** "getPermissions(Long userID, String context)"
