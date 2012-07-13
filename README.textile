@@ -4,3 +4,5 @@ Plint is a connector module to the LagoonSecurity application, which is an authe
 It allows you to easily manage your applciations authentication and autorization.
 
 h2. How to use
+
+... coming soon
