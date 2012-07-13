@@ -1,15 +1,24 @@
-h1. PLint
+h1. PLint - Play Lagoon Interface Connector
+
+h2. Description
 
 Plint is a connector module to the LagoonSecurity (LS) application, which is an authentication/autorization system developed by XLM. 
 It allows you to easily manage your applciations authentication and autorization.
 
-h2. Installation
+h2. Adding Module to your project
 
-After downloading the module, add to <b>dependencies.yml</b> of your application:
+After downloading the module, unzip it and put it in the same folder as your application, then add to <b>dependencies.yml</b> of your application:
 
 <pre>
 require:
-  - yourModulesSource -> plint 0.1alpha5
+    - plint -> plint
+
+repositories:
+    - MyModules:
+       type:    local
+       artifact: "${application.path}/../../../[module]"
+       contains:
+            - plint
 </pre>
 
 And then execute: 
