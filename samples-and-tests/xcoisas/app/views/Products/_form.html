@@ -1,0 +1,49 @@
+
+  <div class="label">Name</div>
+  <div class="field">
+      <input type="text" name="entity.name" value="${entity?.name}"/>
+  </div>
+  <span class="error">${errors.forKey('entity.name')}</span>
+
+  <div class="label">Price</div>
+  <div class="field">
+      <input type="text" name="entity.price" value="${entity?.price}"/>
+  </div>
+  <span class="error">${errors.forKey('entity.price')}</span>
+
+  <div class="label">Type</div>
+  <div class="field">
+        <select name="entity.type.id">            
+        %{ models.Type.all().fetch().sort{ it.toString() }.each() { }%
+          %{
+            selected = false;
+            if (entity?.type?.id == it.id) {
+              selected = true
+            }
+          }%
+          <option value="${it?.id}" ${selected ? 'selected'.raw() : ''}>${it}</option>
+        %{ } }%
+        </select>
+  </div>
+  
+  <div class="label">Condition</div>
+  <div class="field">
+        <select name="entity.condition.id">            
+        %{ models.Condition.all().fetch().sort{ it.toString() }.each() { }%
+          %{
+            selected = false;
+            if (entity?.condition?.id == it.id) {
+              selected = true
+            }
+          }%
+          <option value="${it?.id}" ${selected ? 'selected'.raw() : ''}>${it}</option>
+        %{ } }%
+        </select>
+  </div>
+  
+
+  <div class="label"></div>
+  <div class="field">
+      <input type="hidden" name="entity.id" value="${entity?.id}"/>
+  </div>
+  <span class="error">${errors.forKey('entity.id')}</span>

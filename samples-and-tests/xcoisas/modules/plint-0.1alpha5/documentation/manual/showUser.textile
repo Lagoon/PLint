@@ -1,0 +1,29 @@
+h2. <a>showUser</a>
+
+Method to show an user
+
+Returns: JsonElement with information about the specified user
+
+*Input*
+
+bc. userID: id of the user to show
+context: context in which the user is inserted
+
+*Output*
+
+bc. {
+    "id": 400,
+    "enable": true,
+    "ghost": false,
+    "login": "user1",
+    "name": "user1",
+    "email": "linda.velte@xlm.pt",
+    "profiles": [
+        {
+            "id": 3,
+            "defaultProfile": true,
+            "description": "",
+            "name": "guest"
+        }
+    ]
+}

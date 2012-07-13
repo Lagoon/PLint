@@ -1,0 +1,54 @@
+#{extends 'main.html' /}
+<h2>View Purchase</h2>
+<div class="entity">
+	<div class="row">
+		<span class="elem">
+			buyer:
+		</span>
+		<span class="value">
+      ${entity.buyer}
+		</span>
+	</div>
+	<div class="row">
+		<span class="elem">
+			product:
+		</span>
+		<span class="value">
+      ${entity.product}
+		</span>
+	</div>
+	<div class="row">
+		<span class="elem">
+			price:
+		</span>
+		<span class="value">
+      ${entity.price}
+		</span>
+	</div>
+	<div class="row">
+		<span class="elem">
+			created_at:
+		</span>
+		<span class="value">
+      ${entity.created_at}
+		</span>
+	</div>
+	<div class="row">
+		<span class="elem">
+			updated_at:
+		</span>
+		<span class="value">
+      ${entity.updated_at}
+		</span>
+	</div>
+	<div class="row">
+		<span class="elem">
+			id:
+		</span>
+		<span class="value">
+      ${entity.id}
+		</span>
+	</div>
+</div>
+<a href="@{Purchases.index}">Back</a>
+

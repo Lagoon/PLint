@@ -1,0 +1,22 @@
+
+  <div class="label">Name</div>
+  <div class="field">
+      <input type="text" name="entity.name" value="${entity?.name}"/>
+  </div>
+  <span class="error">${errors.forKey('entity.name')}</span>
+  
+  <div class="label">Description</div>
+  <div class="field">
+      <input type="text" name="entity.description" value="${entity?.description}"/>
+  </div>
+  <span class="error">${errors.forKey('entity.description')}</span>
+
+
+  <div class="field">
+      <input type="hidden" name="entity.contextID" value="${entity?.contextID}"/>
+        <input type="hidden" name="old" value="${old}"/>
+  </div>
+
+ 
+  <span class="error">${errors.forKey('entity.contextID')}</span>
+

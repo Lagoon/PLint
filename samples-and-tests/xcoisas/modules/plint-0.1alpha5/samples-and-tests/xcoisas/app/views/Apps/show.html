@@ -1,0 +1,14 @@
+ #{extends 'main.html' /}
+<h2>Application Info</h2>
+
+ <div class="label">Name</div>
+  <div class="field">
+      <input readonly="readonly" type="text" name="name" value="${name}"/>
+  </div>
+  
+  <div class="label">Description</div>
+  <div class="field">
+      <input readonly="readonly" type="text" name="description" value="${description}"/>
+  </div>
+  
+  <a href="@{Application.index}">Back</a>

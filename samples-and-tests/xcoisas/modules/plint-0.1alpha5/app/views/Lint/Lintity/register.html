@@ -1,0 +1,36 @@
+#{extends 'Lint/layout.html' /}
+
+<div id="login">
+	
+	<h1>${play.configuration['application.name']}</h1>
+	#{form @Lintity.registerUser()}
+		
+		#{if flash.error}
+			<p class="error">
+				&{flash.error}
+			</p>
+		#{/if}
+		#{if flash.success}
+			<p class="success">
+				&{flash.success}
+			</p>
+		#{/if}
+	
+		<p id="username-field">
+			<label for="username">&{'lint.username'}</label>
+			<input type="text" name="username" id="username" value="${flash.username}" />
+		</p>
+		<p id="username-field">
+			<label for="name">Name</label>
+			<input type="text" name="name" id="name" />
+		</p>	
+		<p id="username-field">
+			<label for="email">Email</label>
+			<input type="text" name="email" id="email" />
+		</p>
+		
+		<p id="signin-field">
+			<input type="submit" id="signin" value="Save" />
+		</p>
+	#{/form}
+</div>

@@ -1,0 +1,33 @@
+h2. <a>createUser</a>
+
+Method to create an user
+Returns: JsonElement with information about thed created user and activation token
+
+*Input*
+
+bc. login: login of the user to create
+email: email of the user to create
+name: name of the user to create
+context: context in which the user will be inserted
+
+*Note*:As no profile is specified, the user is associated to the default profile "guest"
+
+*Output*
+
+bc. {
+    "id": 395,
+    "enable": false,
+    "ghost": false,
+    "login": "user1",
+    "name": "user1",
+    "email": "user1@mail.pt",
+    "profiles": [
+        {
+            "id": 3,
+            "defaultProfile": true,
+            "description": "",
+            "name": "guest"
+        }
+    ],
+    "token": "d18dde3a6f9c48a5ae7e63bf232d4b341341844502178"
+}

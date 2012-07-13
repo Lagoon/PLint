@@ -1,0 +1,30 @@
+h2. <a>getUsers</a>
+
+Method to list users of a context
+
+Returns: JsonArray with information about users created in the specified context
+
+*Input*
+
+bc. context: context to ask for users
+
+*Output*
+
+bc. [
+    {
+        "id": 400,
+        "enable": true,
+        "ghost": false,
+        "login": "user1",
+        "name": "user1",
+        "email": "user1@mail.pt",
+        "profiles": [
+            {
+                "id": 3,
+                "defaultProfile": true,
+                "description": "",
+                "name": "guest"
+            }
+        ]
+    }
+]

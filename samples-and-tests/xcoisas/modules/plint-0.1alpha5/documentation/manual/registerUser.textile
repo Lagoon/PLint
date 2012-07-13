@@ -1,0 +1,66 @@
+h2. <a>registerUser</a>
+
+Method to register an user
+Returns: JsonElement with information about registered user and his permissions
+
+*Input*
+
+bc. password: password of the user to register
+token: activation token
+name: name of the user to create
+context: context in which the user was created
+
+*Output*
+
+bc. {
+    "id": 398,
+    "enable": true,
+    "ghost": false,
+    "login": "user1",
+    "name": "user1",
+    "email": "user1@mail.pt",
+    "profiles": [
+        {
+            "profile": "guest",
+            "actions": {
+                "Conditions": [
+                    "index",
+                    "update",
+                    "create",
+                    "show",
+                    "edit",
+                    "save",
+                    "delete"
+                ],
+                "Types": [
+                    "show",
+                    "index",
+                    "update",
+                    "edit",
+                    "delete",
+                    "create",
+                    "save"
+                ],
+                "Users": [
+                    "show",
+                    "edit",
+                    "indexByContext",
+                    "showUser",
+                    "update"
+                ],
+                "Products": [
+                    "index",
+                    "edit",
+                    "show",
+                    "create",
+                    "update",
+                    "delete",
+                    "save"
+                ],
+                "Application": [
+                    "index"
+                ]
+            }
+        }
+    ]
+}

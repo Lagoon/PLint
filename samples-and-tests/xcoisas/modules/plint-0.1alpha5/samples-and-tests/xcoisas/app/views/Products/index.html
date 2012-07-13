@@ -1,0 +1,32 @@
+#{extends 'main.html' /}
+<h2>Products</h2>
+
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th><!-- actions --></th>
+				<th>Name</th>
+				<th>Price</th>
+				<th>Type</th>
+				<th>Id</th>
+		</tr>
+	</thead>
+	<tbody>
+	#{list items:entities, as:'entity'}
+		<tr>
+			<td>
+				<a href="@{Products.show(entity.id)}">Show</a>&nbsp;
+				<a href="@{Products.edit(entity.id)}">Edit</a>&nbsp;
+				<a href="@{Products.buy(entity.id)}">Buy</a>&nbsp;
+				<a href="@{Products.delete(entity.id)}" onclick="if (!confirm('Are you sure you want to delete this record?')) return false;">Delete</a>
+			</td>
+					<td>${entity.name}</td>
+					<td>${entity.price}</td>
+					<td>${entity.type}</td>
+					<td>${entity.id}</td>
+		</tr>
+	#{/list}
+	</tbody>
+</table>
+<a href="@{Products.create}">Create</a>
+

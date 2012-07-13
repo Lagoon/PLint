@@ -1,0 +1,65 @@
+ <div class="row">
+  <div class="label">Buyer</div>
+  <div class="field">
+        <select name="entity.buyer.id">
+                      <option value="">(None)</option>              
+        %{ models.User.all().fetch().sort{ it.toString() }.each() { }%
+          %{
+            selected = false;
+            if (entity?.buyer?.id == it.id) {
+              selected = true
+            }
+          }%
+          <option value="${it?.id}" ${selected ? 'selected'.raw() : ''}>${it}</option>
+        %{ } }%
+        </select>
+  </div>
+  <span class="error">${errors.forKey('entity.buyer')}</span>
+</div>
+ <div class="row">
+  <div class="label">Product</div>
+  <div class="field">
+        <select name="entity.product.id">
+                      <option value="">(None)</option>              
+        %{ models.Product.all().fetch().sort{ it.toString() }.each() { }%
+          %{
+            selected = false;
+            if (entity?.product?.id == it.id) {
+              selected = true
+            }
+          }%
+          <option value="${it?.id}" ${selected ? 'selected'.raw() : ''}>${it}</option>
+        %{ } }%
+        </select>
+  </div>
+  <span class="error">${errors.forKey('entity.product')}</span>
+</div>
+ <div class="row">
+  <div class="label">Price</div>
+  <div class="field">
+      <input type="text" name="entity.price" value="${entity?.price}"/>
+  </div>
+  <span class="error">${errors.forKey('entity.price')}</span>
+</div>
+ <div class="row">
+  <div class="label">Created_at</div>
+  <div class="field">
+      <input type="text" name="entity.created_at" value="${entity?.created_at}"/>
+  </div>
+  <span class="error">${errors.forKey('entity.created_at')}</span>
+</div>
+ <div class="row">
+  <div class="label">Updated_at</div>
+  <div class="field">
+      <input type="text" name="entity.updated_at" value="${entity?.updated_at}"/>
+  </div>
+  <span class="error">${errors.forKey('entity.updated_at')}</span>
+</div>
+ <div class="row">
+  <div class="label"></div>
+  <div class="field">
+      <input type="hidden" name="entity.id" value="${entity?.id}"/>
+  </div>
+  <span class="error">${errors.forKey('entity.id')}</span>
+</div>
+

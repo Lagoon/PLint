@@ -1,0 +1,27 @@
+#{extends 'main.html' /}
+<h2>View Product</h2>
+
+<div class="label">Name</div>
+  <div class="field">
+      <input readonly="readonly" type="text" name="entity.name" value="${entity?.name}"/>
+  </div>
+
+
+  <div class="label">Price</div>
+  <div class="field">
+      <input readonly="readonly" type="text" name="entity.price" value="${entity?.price}"/>
+  </div>
+ 
+ <div class="label">Type</div>
+  <div class="field">
+      <input readonly="readonly" type="text" name="entity.type" value="${entity?.type}"/>
+  </div>
+  
+  <div class="label">Condition</div>
+  <div class="field">
+      <input readonly="readonly" type="text" name="entity.condition" value="${entity?.condition}"/>
+  </div>
+  
+  
+<a href="@{Products.index}">Back</a>
+
