@@ -1,10 +1,17 @@
 h1. PLint
 
-Plint is a connector module to the LagoonSecurity application, which is an authentication/autorization system developed by XLM. 
+Plint is a connector module to the LagoonSecurity application (LS), which is an authentication/autorization system developed by XLM. 
 It allows you to easily manage your applciations authentication and autorization.
+
+h2. Installation
 
 h2. How to use
 
-... coming soon
+After install Plint, in order to use it in your Play! Application, the following configurations must be made on application.conf:
 
-h2. Installation
+lint.protocol=http // Comunication Protocol with LS
+lint.port=8080 // Comunication Port with LS
+lint.baseUrl=xlm.lagoon-ci.olimpo.local // LS Base access URL
+lint.login=loginLagoon // Provided LS Login
+lint.password=passwordLagoon // Provided LS password
+
