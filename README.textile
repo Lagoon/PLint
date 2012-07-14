@@ -1,10 +1,57 @@
-h1. PLint
+h1. PLint - Play Lagoon Interface Connector
 
-Plint is a connector module to the LagoonSecurity application, which is an authentication/autorization system developed by XLM. 
+h2. Description
+
+Plint is a connector module to the LagoonSecurity (LS) application, which is an authentication/autorization system developed by XLM. 
 It allows you to easily manage your applciations authentication and autorization.
+
+h2. Adding Module to your project
+
+After downloading the module, unzip it and put it in the same folder as your application, then add to <b>dependencies.yml</b> of your application:
+
+<pre>
+require:
+    - plint -> plint
+
+repositories:
+    - MyModules:
+       type:    local
+       artifact: "${application.path}/../../../[module]"
+       contains:
+            - plint
+</pre>
+
+And then execute: 
+  @$ play deps@
+Don't forget to execute @$ play eclipsify@ to enable it in eclipse.
+
+h2. Configuration
+
+After install Plint, in order to use it in your Play! Application, the following configurations must be made on <b>application.conf</b>:
+
+<pre>
+lint.protocol=http // Comunication Protocol with LS
+lint.port=8080 // Comunication Port with LS
+lint.baseUrl=subdomain.lagoonsecurity.dyndns.org // Provided LS Base access URL
+lint.login=loginLagoon // Provided LS Login
+lint.password=passwordLagoon // Provided LS password
+</pre>
+
+The baseUrl, login and password will be provided after registration.
 
 h2. How to use
 
-... coming soon
+To check the available methods of Plint visit: https://github.com/dpeixoto/PLint/blob/master/documentation/manual/home.textile .
 
-h2. Installation
+h2. Example Application
+
+In samples-and-tests(https://github.com/dpeixoto/PLint/tree/master/samples-and-tests) you can find an example application using Plint named xcoisas,it simulates an application where users can buy and sell several items.
+The URL to enter test application as administrator (access xcoisas administration area) is: 
+@http:\\admin.lvh.me:9000@
+@login: admin@
+@password: admin@
+
+To enter as a normal user the URL is: @http:\\xcoisas.lvh.me:9000@, 
+here you can register (just store login and password) the application users.
+
+Go to LS so you can change the access configurations of the users from xcoisas to the several resources.
