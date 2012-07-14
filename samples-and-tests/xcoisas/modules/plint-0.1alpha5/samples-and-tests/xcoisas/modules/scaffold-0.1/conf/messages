@@ -1,8 +1,0 @@
-# Default scaffold messages
-# You can specialize this file for each language.
-# For exemple, for french create a messages.fr file
-
-scaffold.none=(None)
-scaffold.created=%s was saved
-scaffold.updated=%s was updated
-scaffold.validation=Validation error!

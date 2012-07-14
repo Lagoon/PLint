@@ -2,7 +2,7 @@ self: play -> plint 0.1alpha5
 
 require:
     - play
-    - xlm -> subdomainchecker 0.1
+    - xlm -> subdomainchecker 0.2
     - xlm -> less 0.3
 
 repositories:

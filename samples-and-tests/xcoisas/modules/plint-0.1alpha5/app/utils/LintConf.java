@@ -1,11 +1,13 @@
 package utils;
 
 import groovy.lang.Singleton;
+import helpers.subdomainchecker.SubdomainChecker;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import play.Play;
+import play.mvc.Http.Request;
 
 public class LintConf {
 
@@ -18,13 +20,14 @@ public class LintConf {
 	 * Lint Configuration properties
 	 */
 	public static final String PROTOCOL = Play.configuration.getProperty("lint.protocol", "http");
-	public static final String BASEURL=Play.configuration.getProperty("lint.baseUrl", null);
+	public static final String BASEURL = Play.configuration.getProperty("lint.baseUrl", null);
 	public static final String PORT = Play.configuration.getProperty("lint.port", null);
 	public static final String LOGIN = Play.configuration.getProperty("lint.login", "guest").trim();
 	public static final String PASSWORD = Play.configuration.getProperty("lint.password", "guest").trim();
 
 	/**
-	 * This is used as default content type related to the web: request, response
+	 * This is used as default content type related to the web: request,
+	 * response
 	 */
 	public static final String CONTENT_TYPE = "json";
 
@@ -38,13 +41,18 @@ public class LintConf {
 	 */
 	protected static LintArgs lintArgs = null;
 
+	public static String getSubdomain(Request request) {
+		return SubdomainChecker.currentSubdomain(request);
+	}
+
 	/**
 	 * Lint args
 	 */
 	@Singleton
 	public static class LintArgs {
 
-		public Map<String, Object> data = new HashMap<String, Object>();        // ThreadLocal access
+		public Map<String, Object> data = new HashMap<String, Object>(); // ThreadLocal
+																			// access
 		public static ThreadLocal<LintArgs> current = new ThreadLocal<LintArgs>();
 
 		public static LintArgs current() {
