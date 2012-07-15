@@ -3,7 +3,7 @@ h1. PLint - Play Lagoon Interface Connector
 h2. Description
 
 Plint is a connector module to the LagoonSecurity (LS) application, which is an authentication/autorization system developed by XLM. 
-It allows you to easily manage your applciations authentication and autorization.
+It allows you to easily manage your applications authentication and autorization.
 
 h2. Adding Module to your project
 
