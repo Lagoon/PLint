@@ -10,7 +10,7 @@ The following list enumerates the available methods, spcifying input parameteres
 *Note* If any of the following mehtods generates an error, a LintException is thrown.
 
 * Authentication
-** "sanitycheck()":sanitycheck
+** "sanitycheck()":PLint/blob/master/documentation/manual/sanitycheck.textile
 ** "identifier()":identifier
 * Application Management
 ** "showApp()":showApp
