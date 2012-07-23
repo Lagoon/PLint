@@ -11,28 +11,28 @@ The following list enumerates the available methods, spcifying input parameteres
 
 * Authentication
 ** "sanitycheck()":sanitycheck.textile
-** "identifier()":identifier
+** "identifier()":identifier.textile
 * Application Management
-** "showApp()":showApp
+** "showApp()":showApp.textile
 * Context Management
-** "getContexts()":getContexts
-** "createContext(String name, String activationUrl, String url, String descritpion, boolean copyContext)":createContext
-** "updateContext(String newName, String activationUrl, String url, String description, String oldName)":updateContext
-** "showContext(String contextName)":showContext
-** "deleteContext(String contextName)":deleteContext
+** "getContexts()":getContexts.textile
+** "createContext(String name, String activationUrl, String url, String descritpion, boolean copyContext)":createContext.textile
+** "updateContext(String newName, String activationUrl, String url, String description, String oldName)":updateContext.textile
+** "showContext(String contextName)":showContext.textile
+** "deleteContext(String contextName)":deleteContext.textile
 * Profile Management
-** "getProfiles()":getProfiles
+** "getProfiles()":getProfiles.textile
 * User Management
-** "login(String user, String password, String context)":login
-** "logout(Long userID, String context)":logout
-** "createUser(String login, String email, String name, String context)":createUser1
-** "createUser(String login, String email, String name, boolean ghost, String[] profiles, String context)":createUser2
-** "registerUser(String password, String token, String context)":registerUser
-** "activateUser(Long userID, String context)":activateUser
-** "deactivateUser(Long userID, String context)":deactivateUser
-** "reactivateUser(Long userID, String context)":reactivateUser
-** "getUsers(String context)":getUsers
-** "showUser(Long userID, String context)":showUser
-** "updateUser(Long userID, String login, String email, String name, boolean ghost, String[] profiles, String context)":updateUser1
-** "updateUser(Long userID, String login, String email, String name, String context)":updateUser2
-** "getPermissions(Long userID, String context)":getPermissions
+** "login(String user, String password, String context)":login.textile
+** "logout(Long userID, String context)":logout.textile
+** "createUser(String login, String email, String name, String context)":createUser1.textile
+** "createUser(String login, String email, String name, boolean ghost, String[] profiles, String context)":createUser2.textile
+** "registerUser(String password, String token, String context)":registerUser.textile
+** "activateUser(Long userID, String context)":activateUser.textile
+** "deactivateUser(Long userID, String context)":deactivateUser.textile
+** "reactivateUser(Long userID, String context)":reactivateUser.textile
+** "getUsers(String context)":getUsers.textile
+** "showUser(Long userID, String context)":showUser.textile
+** "updateUser(Long userID, String login, String email, String name, boolean ghost, String[] profiles, String context)":updateUser1.textile
+** "updateUser(Long userID, String login, String email, String name, String context)":updateUser2.textile
+** "getPermissions(Long userID, String context)":getPermissions.textile
