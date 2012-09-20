@@ -3,7 +3,7 @@ self: play -> plint 0.1alpha9
 require:
     - play
     - xlm -> subdomainchecker 0.2
-    - xlm -> less 0.3
+    - xlm -> less 0.9.1
 
 repositories:
     - artifactory_xlm_zip:  
@@ -11,9 +11,4 @@ repositories:
         artifact:   "http://maven.xlm.olimpo/repo/[module]-[revision].zip" 
         contains:
             - xlm -> *
-   
-    - MyModules:
-       type:    local
-       artifact: "${application.path}/../[module]"
-       contains:
-            - lagoonApi
+

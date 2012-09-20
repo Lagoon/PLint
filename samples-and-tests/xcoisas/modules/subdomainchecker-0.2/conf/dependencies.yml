@@ -1,4 +1,0 @@
-self: play -> subdomainchecker 0.2
-
-require:
-    - play

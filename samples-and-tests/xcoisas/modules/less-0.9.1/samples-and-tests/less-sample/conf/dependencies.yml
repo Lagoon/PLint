@@ -1,3 +1,0 @@
-require:
-    - play -> play
-    - play -> less 0.9.1
