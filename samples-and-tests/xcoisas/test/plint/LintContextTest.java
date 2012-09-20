@@ -19,7 +19,7 @@ public class LintContextTest extends UnitTest {
 	@Before
 	public void setup() throws LintException, TimeoutException {
 		//create subdomain for test
-		LintRobot.createContext("test", "http://www.activationUrl.pt","http://www.url.pt", "test context", true);
+		LintRobot.createContext("test", "http://www.activationUrl.pt","http://www.url.pt", "test context", null);
 	}
 
 	@After
@@ -46,7 +46,7 @@ public class LintContextTest extends UnitTest {
 	@Test
 	public void testCreateContext(){
 		try {
-			JsonElement resp = LintRobot.createContext("xtest2","http://www.activationUrl.pt", "http://www.url.pt", "xtest2 Description", true);
+			JsonElement resp = LintRobot.createContext("xtest2","http://www.activationUrl.pt", "http://www.url.pt", "xtest2 Description", null);
 			assertTrue(resp.isJsonObject());
 			LintRobot.deleteContext("xtest2");
 
@@ -60,7 +60,7 @@ public class LintContextTest extends UnitTest {
 	@Test
 	public void testCreateContextNoActivationUrl(){
 		try {
-			JsonElement resp = LintRobot.createContext("xtest2", null, null, "xtest2 Description", true);
+			JsonElement resp = LintRobot.createContext("xtest2", null, null, "xtest2 Description", null);
 			assertTrue(resp.isJsonObject());
 			LintRobot.deleteContext("xtest2");
 
@@ -74,7 +74,7 @@ public class LintContextTest extends UnitTest {
 	@Test
 	public void testCreateContextNoDescription(){
 		try {
-			JsonElement resp = LintRobot.createContext("xtest2",null, null,  null, true);
+			JsonElement resp = LintRobot.createContext("xtest2",null, null,  null, null);
 			assertTrue(resp.isJsonObject());
 			LintRobot.deleteContext("xtest2");
 
@@ -148,7 +148,7 @@ public class LintContextTest extends UnitTest {
 	@Test
 	public void testDeleteContext(){
 		try {
-			LintRobot.createContext("xtest2", null, null,"test2 context", true);
+			LintRobot.createContext("xtest2", null, null,"test2 context", null);
 			JsonElement resp = LintRobot.deleteContext("xtest2");
 			assertTrue(resp.getAsJsonObject().get("success").getAsString().equals("true"));
 		} catch (LintException e) {

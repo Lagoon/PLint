@@ -1,4 +1,4 @@
-self: play -> plint 0.1alpha5
+self: play -> plint 0.1alpha9
 
 require:
     - play

@@ -14,7 +14,7 @@ public class LintConf {
 	/**
 	 * Lint Version
 	 */
-	public static final String VERSION = "0.1alpha11";
+	public static final String VERSION = "0.1beta2";
 
 	/**
 	 * Lint Configuration properties
@@ -26,8 +26,7 @@ public class LintConf {
 	public static final String PASSWORD = Play.configuration.getProperty("lint.password", "guest").trim();
 
 	/**
-	 * This is used as default content type related to the web: request,
-	 * response
+	 * This is used as default content type related to the web: request, response
 	 */
 	public static final String CONTENT_TYPE = "json";
 
@@ -51,8 +50,8 @@ public class LintConf {
 	@Singleton
 	public static class LintArgs {
 
-		public Map<String, Object> data = new HashMap<String, Object>(); // ThreadLocal
-																			// access
+		public Map<String, Object> data = new HashMap<String, Object>(); // ThreadLocal access
+
 		public static ThreadLocal<LintArgs> current = new ThreadLocal<LintArgs>();
 
 		public static LintArgs current() {

@@ -51,7 +51,7 @@ public class Contexts extends Application {
 			render("@create", entity);
 		}
 		// Send create request
-		JsonElement resp = LintRobot.createContext(entity.name, null, null, entity.description, false);
+		JsonElement resp = LintRobot.createContext(entity.name, null, null, entity.description, null);
 		Gson gson = new Gson();
 		Context context = gson.fromJson(resp, Context.class);
 		context.save();

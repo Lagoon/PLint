@@ -13,28 +13,29 @@ import exceptions.LintException;
 
 /**
  * Profiles Management Methods
+ * 
  * @author linda.velte
- *
+ * 
  */
-public class LintProfiles extends LintRobot{
+public class LintProfiles extends LintRobot {
 
 	/**
 	 * Returns all active profiles
+	 * 
 	 * @return
 	 * @throws LintException
 	 * @throws TimeoutException
 	 */
-	public static JsonElement getProfiles(String context) throws LintException, TimeoutException{
+	public static JsonElement getProfiles(String context) throws LintException, TimeoutException {
 
 		String partialUrl;
-		if(context == null){
-			partialUrl = "applications/" + identifier() + "/profiles";
-		}
-		else{
-			partialUrl = "applications/" + identifier() + "/contexts/" + context + "/profiles";
+		if (context == null) {
+			partialUrl = "profiles";
+		} else {
+			partialUrl = "contexts/" + context + "/profiles";
 		}
 
-		//send request
+		// send request
 		HttpResponse resp = sendRequest(partialUrl, null, LintConf.CONTENT_TYPE, HttpMethod.GET);
 		return resp.getJson();
 	}

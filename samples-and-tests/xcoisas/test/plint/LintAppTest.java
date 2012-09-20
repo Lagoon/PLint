@@ -19,7 +19,7 @@ public class LintAppTest extends UnitTest {
 	@Before
 	public void setup() throws LintException, TimeoutException {
 		//create subdomain for test
-		LintRobot.createContext("test", null,null,"test context", true);
+		LintRobot.createContext("test", null,null,"test context", null);
 	}
 
 	@After

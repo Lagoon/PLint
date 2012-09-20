@@ -26,6 +26,15 @@ public class Bootstrap extends Job {
 				if (Context.findByName(c.name) == null) {
 					c.save();
 				}
+
+				// get context users
+				resp = LintRobot.getUsers(c.name);
+				UserLagoon[] users = gson.fromJson(resp, UserLagoon[].class);
+
+				for (UserLagoon u : users) {
+					User user = new User(u, c);
+					user.save();
+				}
 			}
 
 			// If admin does not exist create context
@@ -33,7 +42,7 @@ public class Bootstrap extends Job {
 			Context admin = Context.findByName("admin");
 			if (admin == null) {
 				String profiles[] = { "admin" };
-				resp = LintRobot.createContext("admin", "", "", "administration area", false);
+				resp = LintRobot.createContext("admin", "", "", "administration area", null);
 				Logger.info("Context admin successfully created");
 
 				admin = gson.fromJson(resp, Context.class);
@@ -44,18 +53,6 @@ public class Bootstrap extends Job {
 				User user = new User(userLagoon, admin);
 				user.save();
 				Logger.info("User admin successfully created");
-			} else {
-				// get user admin and store in local table user
-				resp = LintRobot.getUsers("admin");
-				UserLagoon[] users = gson.fromJson(resp, UserLagoon[].class);
-				for (UserLagoon u : users) {
-
-					if (u.email.equals("lagoon@xlm.pt")) {
-						User user = new User(u, admin);
-						user.save();
-					}
-
-				}
 			}
 		}
 	}

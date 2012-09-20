@@ -28,10 +28,7 @@ public class Lint extends Controller {
 
 		// Check Authentication
 		if (!session.contains("username")) {
-			flash.put("url", "GET".equals(request.method) ? request.url : "/"); // seems
-																				// a
-																				// good
-																				// default
+			flash.put("url", "GET".equals(request.method) ? request.url : "/");
 			login();
 		}
 
@@ -135,10 +132,8 @@ public class Lint extends Controller {
 		}
 
 		/**
-		 * This method is called during the authentication process. This is
-		 * where you check if the user is allowed to log in into the system.
-		 * This is the actual authentication process against a third party
-		 * system (most of the time a DB).
+		 * This method is called during the authentication process. This is where you check if the user is allowed to log in into the system. This is
+		 * the actual authentication process against a third party system (most of the time a DB).
 		 * 
 		 * @param username
 		 * @param password
@@ -168,32 +163,28 @@ public class Lint extends Controller {
 		}
 
 		/**
-		 * This method is called after a successful authentication. You need to
-		 * override this method if you with to perform specific actions (eg.
+		 * This method is called after a successful authentication. You need to override this method if you with to perform specific actions (eg.
 		 * Record the time the user signed in)
 		 */
 		static void onAuthenticated() {
 		}
 
 		/**
-		 * This method is called before a user tries to sign off. You need to
-		 * override this method if you wish to perform specific actions (eg.
-		 * Record the name of the user who signed off)
+		 * This method is called before a user tries to sign off. You need to override this method if you wish to perform specific actions (eg. Record
+		 * the name of the user who signed off)
 		 */
 		static void onDisconnect() {
 		}
 
 		/**
-		 * This method is called after a successful sign off. You need to
-		 * override this method if you wish to perform specific actions (eg.
-		 * Record the time the user signed off)
+		 * This method is called after a successful sign off. You need to override this method if you wish to perform specific actions (eg. Record the
+		 * time the user signed off)
 		 */
 		static void onDisconnected() {
 		}
 
 		/**
-		 * This method is called if a check does not succeed. By default it
-		 * shows the not allowed page (the controller forbidden method).
+		 * This method is called if a check does not succeed. By default it shows the not allowed page (the controller forbidden method).
 		 */
 		static void onCheckFailed() {
 			forbidden();

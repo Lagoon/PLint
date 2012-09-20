@@ -26,6 +26,12 @@ import com.google.gson.JsonObject;
 
 import exceptions.LintException;
 
+/**
+ * LintRobot
+ * 
+ * @author linda.velte
+ * 
+ */
 public class LintRobot {
 
 	/**
@@ -36,14 +42,14 @@ public class LintRobot {
 	 * @throws LintException
 	 * @throws TimeoutException
 	 */
-	public static boolean checkRequest(Request request, Long userID) throws LintException, TimeoutException {
+	public static boolean checkRequest(Request request, Long userid) throws LintException, TimeoutException {
 		// SanityCheck
 		if (!checkConnection()) {
 			return false;
 		}
 
 		// Verify access for controller and action
-		return checkTest(request.action, userID) ? true : false;
+		return checkTest(request.action, userid) ? true : false;
 	}
 
 	/**
@@ -74,125 +80,11 @@ public class LintRobot {
 	 * @throws LintException
 	 * @throws TimeoutException
 	 */
-	public static boolean logout(Long userID, String context) throws LintException, TimeoutException {
-		return LintUser.logout(userID, context);
+	public static boolean logout(Long userid, String context) throws LintException, TimeoutException {
+		return LintUser.logout(userid, context);
 	}
 
-	// ***************************************************************
-
-	// ~~~~~~~~~~~~~ Private ~~~~~~~~~~~~~
-
-	/**
-	 * sanitycheck functionality with version
-	 * 
-	 * @return true if OK otherwise false
-	 * @throws LintException
-	 * @throws TimeoutException
-	 */
-	private static boolean sanityCheck() throws LintException, TimeoutException {
-		try {
-			HttpResponse response = sendRequest("sanitycheck/" + LintConf.VERSION, null, LintConf.CONTENT_TYPE, HttpMethod.GET);
-			String message = response.getJson().getAsJsonObject().get("message").getAsString();
-			if (response.getJson().getAsJsonObject().get("sanity").getAsBoolean()) {
-				Logger.debug("Lint - " + message);
-				return true;
-			} else {
-				Logger.error("Lint - Your application is not working with Lagoon - " + message);
-				return false;
-			}
-		} catch (LintException e) {
-			Logger.error("Lint - " + e.toString());
-			return false;
-		}
-	}
-
-	/**
-	 * identifier functionality
-	 * 
-	 * @return true if OK otherwise false
-	 * @throws LintException
-	 * @throws TimeoutException
-	 */
-	protected static Long identifier() throws LintException, TimeoutException {
-		HttpResponse response = sendRequest("identifier", null, LintConf.CONTENT_TYPE, HttpMethod.GET);
-		JsonObject jObj = response.getJson().getAsJsonObject();
-		return jObj.get("id").getAsLong();
-	}
-
-	// ~~~~~~~~~~~~~ Utils ~~~~~~~~~~~~~~
-
-	/**
-	 * generic request maker using WS. All calls to remote Lagoon should use
-	 * this method
-	 * 
-	 * @param partialUrl
-	 * @param body
-	 * @param contentType
-	 * @return response
-	 * @throws LintException
-	 */
-	protected static HttpResponse sendRequest(String partialUrl, String body, String contentType, HttpMethod method) throws LintException, TimeoutException {
-		WSRequest request = WS.url(LintConf.URL + partialUrl);
-		request.headers.put("accept", "application/" + contentType);
-		request.authenticate(LintConf.LOGIN, LintConf.PASSWORD);
-		request.body(body);
-
-		HttpResponse response = null;
-
-		if (method.equals(HttpMethod.GET)) {
-			response = request.get();
-		} else if (method.equals(HttpMethod.POST)) {
-			response = request.post();
-		} else if (method.equals(HttpMethod.PUT)) {
-			response = request.put();
-		} else if (method.equals(HttpMethod.DELETE)) {
-			response = request.delete();
-		} else {
-			response = request.get();
-		}
-
-		Logger.debug("Lint - " + request.url);
-		return checkResponseCode(response);
-	}
-
-	/**
-	 * check if {@link HttpResponse} code is 2x
-	 * 
-	 * @param response
-	 * @return
-	 * @throws LintException
-	 */
-	private static HttpResponse checkResponseCode(HttpResponse response) throws LintException {
-		if (response == null || !response.success()) {
-			Logger.debug("Lint - " + response.getJson().toString());
-			JsonObject jsonObject = response.getJson().getAsJsonObject();
-			throw new LintException(jsonObject.get("error") + " :: " + jsonObject.get("message"));
-		}
-		return response;
-	}
-
-	/**
-	 * Check if a user has permission to access some Controller.Action
-	 * 
-	 * @param controlerAction
-	 * @return true if OK otherwise false
-	 * @throws LintException
-	 * @throws TimeoutException
-	 */
-	private static boolean checkTest(String controlerAction, Long userID) throws LintException, TimeoutException {
-
-		ArrayList<String> array = getPermissions(userID);
-		Logger.info(controlerAction);
-		Logger.debug(Arrays.asList(array).toString());
-		if (array.contains(controlerAction)) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	// **************** Application Management Methods
-	// ***************************
+	// **************** Application Management Methods ***************************
 	/**
 	 * Get application info including modules
 	 * 
@@ -262,37 +154,37 @@ public class LintRobot {
 	/**
 	 * Activate user on Lagoon
 	 * 
-	 * @param userLagoonId
+	 * @param userid
 	 * @return
 	 * @throws LintException
 	 * @throws TimeoutException
 	 */
-	public static JsonElement activateUser(Long userLagoonId, String context) throws LintException, TimeoutException {
-		return LintUser.activateUser(userLagoonId, context);
+	public static JsonElement activateUser(Long userid, String context) throws LintException, TimeoutException {
+		return LintUser.activateUser(userid, context);
 	}
 
 	/**
 	 * Deactivate user on Lagoon
 	 * 
-	 * @param userLagoonId
+	 * @param userid
 	 * @return
 	 * @throws LintException
 	 * @throws TimeoutException
 	 */
-	public static JsonElement deactivateUser(Long userLagoonId, String context) throws LintException, TimeoutException {
-		return LintUser.deactivateUser(userLagoonId, context);
+	public static JsonElement deactivateUser(Long userid, String context) throws LintException, TimeoutException {
+		return LintUser.deactivateUser(userid, context);
 	}
 
 	/**
 	 * Reactivate user on Lagoon
 	 * 
-	 * @param userLagoonId
+	 * @param userid
 	 * @return
 	 * @throws LintException
 	 * @throws TimeoutException
 	 */
-	public static JsonElement reactivateUser(Long userLagoonId, String context) throws LintException, TimeoutException {
-		return LintUser.reactivateUser(userLagoonId, context);
+	public static JsonElement reactivateUser(Long userid, String context) throws LintException, TimeoutException {
+		return LintUser.reactivateUser(userid, context);
 	}
 
 	/**
@@ -309,19 +201,19 @@ public class LintRobot {
 	/**
 	 * List information of the designated user
 	 * 
-	 * @param idUserLagoon
+	 * @param userid
 	 * @return
 	 * @throws LintException
 	 * @throws TimeoutException
 	 */
-	public static JsonElement showUser(Long idUserLagoon, String context) throws LintException, TimeoutException {
-		return LintUser.showUser(idUserLagoon, context);
+	public static JsonElement showUser(Long userid, String context) throws LintException, TimeoutException {
+		return LintUser.showUser(userid, context);
 	}
 
 	/**
 	 * Update a designated user
 	 * 
-	 * @param idUserLagoon
+	 * @param userid
 	 * @param login
 	 * @param email
 	 * @param name
@@ -332,14 +224,14 @@ public class LintRobot {
 	 * @throws LintException
 	 * @throws TimeoutException
 	 */
-	public static JsonElement updateUser(Long idUserLagoon, String login, String email, String name, boolean ghost, String[] profiles, String context) throws LintException, TimeoutException {
-		return LintUser.updateUser(idUserLagoon, login, email, name, ghost, profiles, context);
+	public static JsonElement updateUser(Long userid, String login, String email, String name, boolean ghost, String[] profiles, String context) throws LintException, TimeoutException {
+		return LintUser.updateUser(userid, login, email, name, ghost, profiles, context);
 	}
 
 	/**
 	 * Update a designated user (with mandatory args only)
 	 * 
-	 * @param idUserLagoon
+	 * @param userid
 	 * @param login
 	 * @param email
 	 * @param name
@@ -347,14 +239,23 @@ public class LintRobot {
 	 * @throws LintException
 	 * @throws TimeoutException
 	 */
-	public static JsonElement updateUser(Long idUserLagoon, String login, String email, String name, String context) throws LintException, TimeoutException {
-		return LintUser.updateUser(idUserLagoon, login, email, name, context);
+	public static JsonElement updateUser(Long userid, String login, String email, String name, String context) throws LintException, TimeoutException {
+		return LintUser.updateUser(userid, login, email, name, context);
 	}
 
-	// **************** Permission Management Methods
-	// ***************************
-	public static JsonElement getPermissions(Long idUserLagoon, String context) throws LintException, TimeoutException {
-		return LintPermissions.getPermissions(idUserLagoon, context);
+	// **************** Permission Management Methods ***************************
+
+	/**
+	 * Retrieves all permissions of an users
+	 * 
+	 * @param userid
+	 * @param context
+	 * @return
+	 * @throws LintException
+	 * @throws TimeoutException
+	 */
+	public static JsonElement getPermissions(Long userid, String context) throws LintException, TimeoutException {
+		return LintPermissions.getPermissions(userid, context);
 	}
 
 	// **************** Context Management Methods ***************************
@@ -381,7 +282,7 @@ public class LintRobot {
 	 * @throws LintException
 	 * @throws TimeoutException
 	 */
-	public static JsonElement createContext(String name, String activationUrl, String url, String description, boolean copyContext) throws LintException, TimeoutException {
+	public static JsonElement createContext(String name, String activationUrl, String url, String description, String copyContext) throws LintException, TimeoutException {
 		return LintContext.createContext(name, activationUrl, url, description, copyContext);
 	}
 
@@ -405,30 +306,28 @@ public class LintRobot {
 	/**
 	 * Get context information
 	 * 
-	 * @param contextName
+	 * @param context
 	 *            - Context
 	 * @return {@link JsonElement} with Context information
 	 * @throws LintException
 	 * @throws TimeoutException
 	 */
-	public static JsonElement showContext(String contextName) throws LintException, TimeoutException {
-		return LintContext.showContext(contextName);
+	public static JsonElement showContext(String context) throws LintException, TimeoutException {
+		return LintContext.showContext(context);
 	}
 
 	/**
 	 * Delete subdoamin/context
 	 * 
-	 * @param contextName
+	 * @param context
 	 *            - Context to be deleted
 	 * @return {@link JsonElement}
 	 * @throws LintException
 	 * @throws TimeoutException
 	 */
-	public static JsonElement deleteContext(String contextName) throws LintException, TimeoutException {
-		return LintContext.deleteContext(contextName);
+	public static JsonElement deleteContext(String context) throws LintException, TimeoutException {
+		return LintContext.deleteContext(context);
 	}
-
-	// ***************************************************************
 
 	// **************** Utils ***************************
 
@@ -440,10 +339,10 @@ public class LintRobot {
 	 * @throws TimeoutException
 	 */
 	@Util
-	private static ArrayList<String> getPermissions(Long userID) throws LintException, TimeoutException {
+	private static ArrayList<String> getPermissions(Long userid) throws LintException, TimeoutException {
 
 		String context = SubdomainChecker.currentSubdomain(Request.current());
-		JsonElement elem = getPermissions(userID, context);
+		JsonElement elem = getPermissions(userid, context);
 
 		ArrayList<String> perms = new ArrayList<String>();
 		Gson gson = new Gson();
@@ -457,5 +356,98 @@ public class LintRobot {
 			}
 		}
 		return perms;
+	}
+
+	/**
+	 * sanitycheck functionality with version
+	 * 
+	 * @return true if OK otherwise false
+	 * @throws LintException
+	 * @throws TimeoutException
+	 */
+	private static boolean sanityCheck() throws LintException, TimeoutException {
+		try {
+			HttpResponse response = sendRequest("sanitycheck/" + LintConf.VERSION, null, LintConf.CONTENT_TYPE, HttpMethod.GET);
+			String message = response.getJson().getAsJsonObject().get("message").getAsString();
+			if (response.getJson().getAsJsonObject().get("sanity").getAsBoolean()) {
+				Logger.debug("Lint - " + message);
+				return true;
+			} else {
+				Logger.error("Lint - Your application is not working with Lagoon - " + message);
+				return false;
+			}
+		} catch (LintException e) {
+			Logger.error("Lint - " + e.toString());
+			return false;
+		}
+	}
+
+	/**
+	 * generic request maker using WS. All calls to remote Lagoon should use this method
+	 * 
+	 * @param partialUrl
+	 * @param body
+	 * @param contentType
+	 * @return response
+	 * @throws LintException
+	 */
+	protected static HttpResponse sendRequest(String partialUrl, String body, String contentType, HttpMethod method) throws LintException, TimeoutException {
+		WSRequest request = WS.url(LintConf.URL + partialUrl);
+		request.headers.put("accept", "application/" + contentType);
+		request.authenticate(LintConf.LOGIN, LintConf.PASSWORD);
+		request.body(body);
+
+		HttpResponse response = null;
+
+		if (method.equals(HttpMethod.GET)) {
+			response = request.get();
+		} else if (method.equals(HttpMethod.POST)) {
+			response = request.post();
+		} else if (method.equals(HttpMethod.PUT)) {
+			response = request.put();
+		} else if (method.equals(HttpMethod.DELETE)) {
+			response = request.delete();
+		} else {
+			response = request.get();
+		}
+
+		Logger.debug("Lint - " + request.url);
+		return checkResponseCode(response);
+	}
+
+	/**
+	 * check if {@link HttpResponse} code is 2x
+	 * 
+	 * @param response
+	 * @return
+	 * @throws LintException
+	 */
+	private static HttpResponse checkResponseCode(HttpResponse response) throws LintException {
+		if (response == null || !response.success()) {
+			Logger.debug("Lint - " + response.getJson().toString());
+			JsonObject jsonObject = response.getJson().getAsJsonObject();
+			throw new LintException(jsonObject.get("error") + " :: " + jsonObject.get("message"));
+		}
+		return response;
+	}
+
+	/**
+	 * Check if a user has permission to access some Controller.Action
+	 * 
+	 * @param controlerAction
+	 * @return true if OK otherwise false
+	 * @throws LintException
+	 * @throws TimeoutException
+	 */
+	private static boolean checkTest(String controlerAction, Long userid) throws LintException, TimeoutException {
+
+		ArrayList<String> array = getPermissions(userid);
+		Logger.info(controlerAction);
+		Logger.debug(Arrays.asList(array).toString());
+		if (array.contains(controlerAction)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

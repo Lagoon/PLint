@@ -13,26 +13,28 @@ import exceptions.LintException;
 
 /**
  * Permission Management Methods
+ * 
  * @author linda.velte
- *
+ * 
  */
-public class LintPermissions extends LintRobot{
+public class LintPermissions extends LintRobot {
 
 	/**
 	 * Gets list of users permissions
-	 * @param idUserLagoon
+	 * 
+	 * @param userid
 	 * @param context
 	 * @return
 	 * @throws LintException
 	 * @throws TimeoutException
 	 */
-	public static JsonElement getPermissions(Long idUserLagoon, String context) throws LintException, TimeoutException{
+	public static JsonElement getPermissions(Long userid, String context) throws LintException, TimeoutException {
 
 		String partialUrl;
-		if(context == null){
-			partialUrl = "applications/" + identifier() + "/users/" + idUserLagoon + "/permissions";
-		}else{
-			partialUrl = "applications/" + identifier() + "/contexts/" + context + "/users/" + idUserLagoon + "/permissions";
+		if (context == null) {
+			partialUrl = "users/" + userid + "/permissions";
+		} else {
+			partialUrl = "contexts/" + context + "/users/" + userid + "/permissions";
 		}
 
 		HttpResponse resp = sendRequest(partialUrl, null, LintConf.CONTENT_TYPE, HttpMethod.GET);

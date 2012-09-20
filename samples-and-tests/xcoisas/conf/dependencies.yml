@@ -6,7 +6,7 @@ require:
 require:
     - play
     - play -> crud
-    - xlm -> plint 0.1alpha5
+    - xlm -> plint 0.1alpha9
     - xlm -> subdomainchecker 0.2
     - xlm -> less 0.9.1
     - joda-time -> joda-time-hibernate 1.3
