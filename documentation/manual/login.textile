@@ -1,10 +1,10 @@
 h2. <a>login</a>
 
 Method to authenticate a user
-Returns: id of the authenticated user or false in case of no success
+Returns: id of the authenticated user or throws a LintException in case of no success
 
 *Input*
 
-bc. username: login of the user to authenticate
+bc. user: login of the user to authenticate
 password: password of the user to authenticate
 context: context in which user is inserted

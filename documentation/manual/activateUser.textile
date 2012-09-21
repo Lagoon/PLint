@@ -1,12 +1,13 @@
 h2. <a>activateUser</a>
 
-Method to activate an user.
+Method to activate an user.This method can only be used if user is disabled but has configured his access credentials.
+The user it set to enabled with his previous credentials, being it possible to change it using the activation url send to the users email.
 
-Returns: JsonElement with information about the user and his permissions
+Returns a JsonElement with information about the user and his permissions
 
 *Input*
 
-bc. userID: id of the user to activate
+bc. userid: id of the user to activate
 context: context in which the user was created
 
 *Output*

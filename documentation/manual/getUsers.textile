@@ -2,7 +2,8 @@ h2. <a>getUsers</a>
 
 Method to list users of a context
 
-Returns: JsonArray with information about users created in the specified context
+Returns a JsonArray with information about users created in the specified context. If the application is configured as SaaS and no context is specified, all users 
+of all contexts are listed. If the application does not operate in SaaS mode all users of the default context are listed. 
 
 *Input*
 
@@ -21,7 +22,6 @@ bc. [
         "profiles": [
             {
                 "id": 3,
-                "defaultProfile": true,
                 "description": "",
                 "name": "guest"
             }

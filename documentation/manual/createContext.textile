@@ -1,7 +1,7 @@
 h2. <a>createContext</a>
 
 Method to create a new context.
-Returns: JsonElement with information about created context
+Returns a JsonElement with information about created context.
 
 *Input* 
 
@@ -9,33 +9,14 @@ bc. name: context name
  activationUrl: url for users password registry
  url: context url
  description: context description
- copyContext: copy default context configuration if true
+ copyContext: name of the context to copy profiles from. If not set profiles are copied from default context
 
 *Output*
 
 bc. {
     "id": 831,
+    "enable":true,
     "defaultContext": false,
     "name": "new",
-    "description": "new context",
-    "profiles": [
-        {
-            "id": 1,
-            "defaultProfile": false,
-            "description": "admin profile",
-            "name": "admin"
-        },
-        {
-            "id": 2,
-            "defaultProfile": false,
-            "description": "",
-            "name": "test"
-        },
-        {
-            "id": 3,
-            "defaultProfile": true,
-            "description": "",
-            "name": "guest"
-        }
-    ]
+    "description": "new context"
 }

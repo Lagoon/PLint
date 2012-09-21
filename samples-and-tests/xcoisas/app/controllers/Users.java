@@ -18,8 +18,9 @@ import exceptions.LintException;
 
 /**
  * Users
+ * 
  * @author linda.velte
- *
+ * 
  */
 public class Users extends Application {
 
@@ -33,9 +34,9 @@ public class Users extends Application {
 
 		JsonElement resp = LintRobot.getUsers(Lintity.currentContext().name);
 		Gson gson = new Gson();
-		UserLagoon[] users  = gson.fromJson(resp, UserLagoon[].class);
+		UserLagoon[] users = gson.fromJson(resp, UserLagoon[].class);
 
-		for(UserLagoon u : users) {
+		for (UserLagoon u : users) {
 			UserLagoon userLagoon = UserLagoon.findByExternalID(u.id);
 			User user = User.findByUserLagoon(userLagoon);
 			entities.add(user);
@@ -43,7 +44,7 @@ public class Users extends Application {
 		render(entities);
 	}
 
-	public static void showUser(Long id ) throws LintException, TimeoutException {
+	public static void showUser(Long id) throws LintException, TimeoutException {
 		User entity = User.findById(id);
 		JsonElement resp = LintRobot.showUser(entity.userLagoon.id, Lintity.currentContext().name);
 		Gson gson = new Gson();
@@ -76,7 +77,7 @@ public class Users extends Application {
 		index();
 	}
 
-	public static void reactivate(Long id) throws LintException, TimeoutException   {
+	public static void reactivate(Long id) throws LintException, TimeoutException {
 		User user = User.findById(id);
 		LintRobot.reactivateUser(user.userLagoon.id, user.context.name);
 		doFlashSuccess("User reactivated");
@@ -86,21 +87,20 @@ public class Users extends Application {
 	public static void edit(java.lang.Long id) throws LintException, TimeoutException {
 		User entity = User.findById(id);
 
-		//get context profiles
+		// get context profiles
 		JsonElement resp = LintRobot.getProfiles(Lintity.currentContext().name);
 		Gson gson = new Gson();
-		Profile[] profilesLagoon  = gson.fromJson(resp, Profile[].class);
+		Profile[] profilesLagoon = gson.fromJson(resp, Profile[].class);
 
-		for(Profile p : profilesLagoon) {
+		for (Profile p : profilesLagoon) {
 			Profile userProfile = Profile.findByExternalId(p.id);
-			if(userProfile == null) {
+			if (userProfile == null) {
 				p.save();
 			}
 		}
 		List<Profile> profiles = Profile.all().fetch();
 		render(entity, profiles);
 	}
-
 
 	public static void update(@Valid User entity) throws LintException, TimeoutException {
 		if (validation.hasErrors()) {
@@ -110,13 +110,12 @@ public class Users extends Application {
 
 		List<Profile> profiles = new ArrayList<Profile>(entity.profiles);
 		String[] updateProfiles = new String[profiles.size()];
-		for(int i = 0; i < profiles.size(); i++) {
+		for (int i = 0; i < profiles.size(); i++) {
 			updateProfiles[i] = profiles.get(i).name;
 		}
 
 		JsonElement resp = LintRobot.updateUser(entity.userLagoon.id, entity.userLagoon.login, entity.userLagoon.email, entity.userLagoon.name, false, updateProfiles, Lintity.currentContext().name);
 		Gson gson = new Gson();
-
 
 		UserLagoon u = gson.fromJson(resp, UserLagoon.class);
 		UserLagoon old = UserLagoon.findByExternalID(u.id);
@@ -125,9 +124,9 @@ public class Users extends Application {
 		old.email = u.email;
 
 		JsonElement pjson = resp.getAsJsonObject().get("profiles").getAsJsonArray();
-		Profile[] profilesLagoon  = gson.fromJson(pjson, Profile[].class);
+		Profile[] profilesLagoon = gson.fromJson(pjson, Profile[].class);
 
-		for(Profile p : profilesLagoon) {
+		for (Profile p : profilesLagoon) {
 			Profile myProfile = Profile.findByExternalId(p.id);
 			entity.profiles.add(myProfile);
 		}

@@ -1,4 +1,4 @@
-self: play -> plint 0.1alpha9
+self: play -> plint 0.1beta
 
 require:
     - play
@@ -11,4 +11,3 @@ repositories:
         artifact:   "http://maven.xlm.olimpo/repo/[module]-[revision].zip" 
         contains:
             - xlm -> *
-

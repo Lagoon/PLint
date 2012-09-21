@@ -2,11 +2,11 @@ h2. <a>reactivateUser</a>
 
 Method to reactivate an user. It can only be used as long as the user was never activated (only resends activation instructions)
 
-Returns: JsonElement with information about the user and his permissions
+Returns a JsonElement with information about the user and his permissions
 
 *Input*
 
-bc. userID: id of the user to reactivate
+bc. userd: id of the user to reactivate
 context: context in which the user was created
 
 *Output*

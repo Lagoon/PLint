@@ -1,9 +1,9 @@
 h2. <a>logout</a>
 
 Method to logout a user
-Returns: true/false in case of success/error
+Returns true/false in case of success/error
 
 *Input*
 
-bc. userID: i of the user to logout
+bc. userid: id of the user to logout
 context: context in which user is inserted

@@ -1,39 +1,20 @@
 h2. <a>showContext</a>
 
-Method to show a contexts information
-Returns: JsonElement with information about the context
+Method to show a contexts
+Returns a JsonElement with information about the context
 
 *Input* 
 
-bc. contextName: name of the context to show
+bc. context: name of the context to show
 
 *Output*
 
 bc. {
     "id": 830,
+    "enable": true,
     "defaultContext": false,
     "name": "admin",
     "description": "administration area",
     "activationUrl": "",
-    "url": "",
-    "profiles": [
-        {
-            "id": 1,
-            "defaultProfile": false,
-            "description": "admin profile",
-            "name": "admin"
-        },
-        {
-            "id": 2,
-            "defaultProfile": false,
-            "description": "",
-            "name": "test"
-        },
-        {
-            "id": 3,
-            "defaultProfile": true,
-            "description": "",
-            "name": "guest"
-        }
-    ]
+    "url": ""
 }

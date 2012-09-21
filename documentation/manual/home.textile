@@ -1,38 +1,37 @@
 h1. PLint
 
-Plint is a connector module to the LagoonSecurity application, which is an authentication/autorization system developed by XLM. 
-It allows you to easily manage your applciations authentication and autorization.
+PLint is a connector module to easily integrate your applications with Lagoon(r) Security, which is an authentication/authorization system developed by XLM. 
+This way manage your applications authentication and authorization is made very simple. 
 
 h2. How to use
 
-The following list enumerates the available methods, spcifying input parameteres and showing example outputs.
+The following list enumerates the available methods, specifying input parameters and showing example outputs.
 
-*Note* If any of the following mehtods generates an error, a LintException is thrown.
+*Note* If any of the following methods generates an error, a LintException is thrown.
 
 * Authentication
 ** "sanitycheck()":sanitycheck.textile
-** "identifier()":identifier.textile
 * Application Management
 ** "showApp()":showApp.textile
 * Context Management
 ** "getContexts()":getContexts.textile
 ** "createContext(String name, String activationUrl, String url, String descritpion, boolean copyContext)":createContext.textile
 ** "updateContext(String newName, String activationUrl, String url, String description, String oldName)":updateContext.textile
-** "showContext(String contextName)":showContext.textile
-** "deleteContext(String contextName)":deleteContext.textile
+** "showContext(String context)":showContext.textile
+** "deleteContext(String context)":deleteContext.textile
 * Profile Management
-** "getProfiles()":getProfiles.textile
+** "getProfiles(String context)":getProfiles.textile
 * User Management
 ** "login(String user, String password, String context)":login.textile
-** "logout(Long userID, String context)":logout.textile
+** "logout(Long userid, String context)":logout.textile
 ** "createUser(String login, String email, String name, String context)":createUser1.textile
 ** "createUser(String login, String email, String name, boolean ghost, String[] profiles, String context)":createUser2.textile
 ** "registerUser(String password, String token, String context)":registerUser.textile
-** "activateUser(Long userID, String context)":activateUser.textile
-** "deactivateUser(Long userID, String context)":deactivateUser.textile
-** "reactivateUser(Long userID, String context)":reactivateUser.textile
+** "activateUser(Long userid, String context)":activateUser.textile
+** "deactivateUser(Long userid, String context)":deactivateUser.textile
+** "reactivateUser(Long userid, String context)":reactivateUser.textile
 ** "getUsers(String context)":getUsers.textile
-** "showUser(Long userID, String context)":showUser.textile
-** "updateUser(Long userID, String login, String email, String name, boolean ghost, String[] profiles, String context)":updateUser1.textile
-** "updateUser(Long userID, String login, String email, String name, String context)":updateUser2.textile
-** "getPermissions(Long userID, String context)":getPermissions.textile
+** "showUser(Long userid, String context)":showUser.textile
+** "updateUser(Long userid, String login, String email, String name, boolean ghost, String[] profiles, String context)":updateUser1.textile
+** "updateUser(Long userid, String login, String email, String name, String context)":updateUser2.textile
+** "getPermissions(Long userid, String context)":getPermissions.textile

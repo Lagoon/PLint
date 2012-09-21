@@ -12,11 +12,6 @@ import play.mvc.Http.Request;
 public class LintConf {
 
 	/**
-	 * Lint Version
-	 */
-	public static final String VERSION = "0.1beta2";
-
-	/**
 	 * Lint Configuration properties
 	 */
 	public static final String PROTOCOL = Play.configuration.getProperty("lint.protocol", "http");
@@ -33,7 +28,7 @@ public class LintConf {
 	/**
 	 * Computed common base url
 	 */
-	public static final String URL = PROTOCOL + "://" + BASEURL + ":" + PORT + "/api/";
+	public static final String URL = PROTOCOL + "://" + BASEURL + ":" + PORT + "/api/v1/";
 
 	/**
 	 * Lint Arguments

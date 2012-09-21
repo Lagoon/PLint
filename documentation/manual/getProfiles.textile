@@ -1,0 +1,24 @@
+h2. <a>getProfiles</a>
+
+Method to list all enabled profiles of a context
+Returns a JsonArray with information of the existent profiles
+
+*Input* 
+
+bc. context: name of the context. This can only be used if application is configured as SaaS. If this is not the case,
+context is passed as null, being listed all enabled profiles of the default context.
+
+*Output*
+
+bc. [
+    {
+        "id": 2,
+        "description": "",
+        "name": "test"
+    },
+    {
+        "id": 3,
+        "description": "",
+        "name": "guest"
+    }
+]

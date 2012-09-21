@@ -31,7 +31,6 @@ public class Lint extends Controller {
 			flash.put("url", "GET".equals(request.method) ? request.url : "/");
 			login();
 		}
-
 		// Check Authorization
 		if (!LintRobot.checkRequest(request, Long.parseLong(session.get("id")))) {
 			Lintity.invoke("onCheckFailed");

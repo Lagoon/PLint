@@ -17,7 +17,6 @@
       <input type="text" name="entity.userLagoon.login" value="${entity?.userLagoon?.login}"/>
   </div>
   <span class="error">${errors.forKey('entity.userLagoon.login')}</span>
-
   <div class="label">Profiles</div>
    <div class="field">
    	<select multiple='multiple' name="entity.profiles.profileID">
@@ -26,8 +25,6 @@
           			%{ 
             			selected = false;
             			entity?.profiles.each() { f -> %}
-            			
-            			<p>coisas - ${it.profileID}<p>
             		%{
               			if (f.id == it?.id)
                 		selected = true;
@@ -43,9 +40,5 @@
       <input type="hidden" name="entity.id" value="${entity?.id}"/>
       <input type="hidden" name="entity.userLagoon.id" value="${entity?.userLagoon?.id}"/>
   </div>
-
-  
- 
-
   <span class="error">${errors.forKey('entity.id')}</span>
 

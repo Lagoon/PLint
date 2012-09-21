@@ -1,16 +1,16 @@
 h2. <a>updateUser</a>
 
 Method to update an user
-Returns: JsonElement with information about the updated user
+Returns a JsonElement with information about the updated user
 
 *Input*
 
-bc. userID: id of the user to update
+bc. userid: id of the user to update
 login: login of the user to update
 email: email of the user to update
-name: name of the user to create
+name: name of the user to update
 ghost: if true user receives no notifications of activation/deactivation operations
-profiles: profiles to associate to user (must already exist)
+profiles: profiles to associate to user (must already exist in context and be enabled)
 context: context in which the user is inserted
 
 *Output*
@@ -25,13 +25,11 @@ bc. {
     "profiles": [
         {
             "id": 2,
-            "defaultProfile": false,
             "description": "",
             "name": "test"
         },
         {
             "id": 3,
-            "defaultProfile": true,
             "description": "",
             "name": "guest"
         }

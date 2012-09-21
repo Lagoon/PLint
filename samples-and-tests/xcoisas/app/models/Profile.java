@@ -18,16 +18,16 @@ public class Profile extends GenericModel {
 	@GeneratedValue
 	public Long profileID;
 
-	@Column(name="id")
+	@Column(name = "id")
 	public Long id;
 
-	@Column(name="name")
+	@Column(name = "name")
 	public String name;
 
 	@ManyToMany(mappedBy = "profiles")
 	Set<User> users = new HashSet<User>(0);
 
-	///	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// / ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 	@Override
 	public String toString() {
@@ -38,4 +38,7 @@ public class Profile extends GenericModel {
 		return find("byId", id).first();
 	}
 
+	public static Profile findName(String name) {
+		return find("byName", name).first();
+	}
 }

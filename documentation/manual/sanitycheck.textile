@@ -1,20 +1,11 @@
 h2. <a>sanityCheck</a>
 
-Method used by the module to test connectiviy to LagoonSecurity and version compatibility. 
-It is called before any request to test the connection. Errors are written to the log file, being otherwhise transparent to the user.
+Method used by the module that test connectivity to Lagoon(r) Security and version compatibility.
+It is called before any request to test the connection.
 
-*Output*
+This method returns true if following conditions are satisfied: 
+* access credentials are correct
+* application and environment are enabled
+* API version is supported
 
-bc. {
-  "sanity": true,
-  "message": "Application xcoisas - xcoisas_env is ok!",
-  "version": "0.1alpha11" 
-}
-
-*Output with incompatible version*
-
-bc. {
-    "sanity": false,
-    "message": "Version :: 0.1.999-RC33 :: not supported",
-    "version": "0.1alpha11" 
-}
+If one or more of this conditions fail, the method returns false. If this happens consult the log file for explaining error messages. 

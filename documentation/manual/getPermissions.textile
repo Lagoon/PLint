@@ -1,11 +1,11 @@
 h2. <a>getPermissions</a>
 
 Method to list permissions of an user
-Returns: JsonArray with the users permissions, organizanized by profiles-actions-actionPoints
+Returns a JsonArray with the users permissions, organized by profiles-actions-actionPoints
 
 *Input*
 
-bc. userID: id of the user
+bc. userid: id of the user
 context: context in which the user is inserted
 
 *Output*

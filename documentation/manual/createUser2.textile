@@ -9,7 +9,7 @@ bc. login: login of the user to create
 email: email of the user to create
 name: name of the user to create
 ghost: if true user receives no notifications of activation/deactivation operations
-profiles: profiles to associate to user (must already exist)
+profiles: profiles to associate to user (must already exist in context and be enabled)
 context: context in which the user will be inserted
 
 *Output*
@@ -24,7 +24,6 @@ bc. {
     "profiles": [
         {
             "id": 1,
-            "defaultProfile": false,
             "description": "admin profile",
             "name": "admin"
         }

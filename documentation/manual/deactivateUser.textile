@@ -1,12 +1,12 @@
 h2. <a>deactivateUser</a>
 
-Method to deactivate an user.
+Method to deactivate an user. This method can only be used if user is active. 
 
 Returns: JsonElement with information about the user and his permissions
 
 *Input*
 
-bc. userID: id of the user to deactivate
+bc. userid: id of the user to deactivate
 context: context in which the user was created
 
 *Output*

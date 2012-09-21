@@ -1,13 +1,12 @@
 h2. <a>registerUser</a>
 
 Method to register an user
-Returns: JsonElement with information about registered user and his permissions
+Returns a JsonElement with information about registered user and his permissions
 
 *Input*
 
 bc. password: password of the user to register
 token: activation token
-name: name of the user to create
 context: context in which the user was created
 
 *Output*

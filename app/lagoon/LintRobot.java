@@ -367,17 +367,17 @@ public class LintRobot {
 	 */
 	private static boolean sanityCheck() throws LintException, TimeoutException {
 		try {
-			HttpResponse response = sendRequest("sanitycheck/" + LintConf.VERSION, null, LintConf.CONTENT_TYPE, HttpMethod.GET);
+			HttpResponse response = sendRequest("sanitycheck", null, LintConf.CONTENT_TYPE, HttpMethod.GET);
 			String message = response.getJson().getAsJsonObject().get("message").getAsString();
 			if (response.getJson().getAsJsonObject().get("sanity").getAsBoolean()) {
-				Logger.debug("Lint - " + message);
+				Logger.debug("PLint - " + message);
 				return true;
 			} else {
-				Logger.error("Lint - Your application is not working with Lagoon - " + message);
+				Logger.error("PLint - Your application is not working with Lagoon - " + message);
 				return false;
 			}
 		} catch (LintException e) {
-			Logger.error("Lint - " + e.toString());
+			Logger.error("PLint - " + e.toString());
 			return false;
 		}
 	}

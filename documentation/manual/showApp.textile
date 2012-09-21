@@ -1,14 +1,12 @@
 h2. <a>showApp</a>
 
 Method to get application information.
-Return: JsonElement with application and environment attributes.
+Returns a JsonElement with application and environment attributes.
 
 *Output*
 
 bc. {
-     "id": 2,
      "notify": true,
-     "defaultEnvironment": false,
      "activationUrl": "",
      "description": "",
      "name": "xcoisas_env",

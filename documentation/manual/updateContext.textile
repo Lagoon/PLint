@@ -1,7 +1,7 @@
 h2. <a>updateContext</a>
 
 Method to update a context.
-Returns: JsonElement with information about updated context
+Returns a JsonElement with information about the updated context
 
 *Input* 
 
@@ -15,27 +15,8 @@ bc. name: context name
 
 bc. {
     "id": 831,
+    "enable": true
     "defaultContext": false,
     "name": "edited",
-    "description": "edited context description",
-    "profiles": [
-        {
-            "id": 1,
-            "defaultProfile": false,
-            "description": "admin profile",
-            "name": "admin"
-        },
-        {
-            "id": 2,
-            "defaultProfile": false,
-            "description": "",
-            "name": "test"
-        },
-        {
-            "id": 3,
-            "defaultProfile": true,
-            "description": "",
-            "name": "guest"
-        }
-    ]
+    "description": "edited context description"
 }

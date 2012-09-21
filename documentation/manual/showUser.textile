@@ -2,11 +2,11 @@ h2. <a>showUser</a>
 
 Method to show an user
 
-Returns: JsonElement with information about the specified user
+Returns a JsonElement with information about the specified user
 
 *Input*
 
-bc. userID: id of the user to show
+bc. userid: id of the user to show
 context: context in which the user is inserted
 
 *Output*
@@ -21,7 +21,6 @@ bc. {
     "profiles": [
         {
             "id": 3,
-            "defaultProfile": true,
             "description": "",
             "name": "guest"
         }

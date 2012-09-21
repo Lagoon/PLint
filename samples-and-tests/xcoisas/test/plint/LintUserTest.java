@@ -58,23 +58,6 @@ public class LintUserTest extends UnitTest {
 	}
 
 	@Test
-	public void testCreateUser() {
-		try {
-			String[] profiles = { "admin" };
-			JsonElement resp = LintRobot.createUser("user1", "xisgest@xlm.pt", "user1", false, profiles, context);
-			assertTrue(resp.getAsJsonObject().get("login").getAsString().equals("user1"));
-			assertTrue(resp.getAsJsonObject().get("name").getAsString().equals("user1"));
-
-		} catch (LintException e) {
-			assertFalse(e.getMessage(), true);
-			e.printStackTrace();
-		} catch (TimeoutException e) {
-			assertFalse(e.getMessage(), true);
-			e.printStackTrace();
-		}
-	}
-
-	@Test
 	public void testLogout() {
 		try {
 			JsonElement resp = LintRobot.createUser("user1", "xisgest@xlm.pt", "user1", context);
@@ -165,7 +148,7 @@ public class LintUserTest extends UnitTest {
 	public void testActivateUser() {
 
 		String[] profiles = new String[1];
-		profiles[0] = "admin";
+		profiles[0] = "guest";
 		JsonElement user;
 		try {
 			user = LintRobot.createUser("user9", "xisgest@xlm.pt", "user1", false, profiles, context);
@@ -304,7 +287,7 @@ public class LintUserTest extends UnitTest {
 
 	@Test
 	public void testUpdateUser() {
-		String[] profiles = { "admin" };
+		String[] profiles = { "guest" };
 
 		try {
 			JsonElement user = LintRobot.createUser("user1", "xisgest@xlm.pt", "user1", false, profiles, context);

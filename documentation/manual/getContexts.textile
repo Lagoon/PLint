@@ -1,73 +1,34 @@
 h2. <a>getContexts</a>
 
 Method to list all application contexts.
-Returns: JsonArray with information of all contexts
+Returns a JsonArray with information of all contexts
 
 *Output*
 
 bc. [
     {
         "id": 2,
+        "enable":true,
         "defaultContext": true,
         "name": "default",
-        "description": "Default Context",
-        "profiles": [
-            {
-                "id": 3,
-                "defaultProfile": true,
-                "description": "",
-                "name": "guest"
-            }
-        ]
+        "description": "Default Context"
     },
     {
         "id": 4,
+        "enable":true,
         "defaultContext": false,
         "name": "xcoisas",
         "description": "",
         "activationUrl": "http://xcoisas.lvh.me:9000/activation",
-        "url": "",
-        "profiles": [
-            {
-                "id": 2,
-                "defaultProfile": false,
-                "description": "",
-                "name": "test"
-            },
-            {
-                "id": 3,
-                "defaultProfile": true,
-                "description": "",
-                "name": "guest"
-            }
-        ]
+        "url": ""
     },
     {
         "id": 830,
+        "enable":true,
         "defaultContext": false,
         "name": "admin",
         "description": "administration area",
         "activationUrl": "",
-        "url": "",
-        "profiles": [
-            {
-                "id": 1,
-                "defaultProfile": false,
-                "description": "admin profile",
-                "name": "admin"
-            },
-            {
-                "id": 2,
-                "defaultProfile": false,
-                "description": "",
-                "name": "test"
-            },
-            {
-                "id": 3,
-                "defaultProfile": true,
-                "description": "",
-                "name": "guest"
-            }
-        ]
+        "url": ""
     }
 ]
