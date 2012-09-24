@@ -31,5 +31,5 @@ The following list enumerates the available methods, specifying input parameters
 ** "Reactivate User":reactivateUser.textile: Enables an user who was never registered
 ** "List Users":getUsers.textile: Retrieves a list of all users
 ** "Show User":showUser.textile: Retrieves information of a specific user
-** "Update User":updateUser1.textile: Updates a specific user
+** "Update User":updateUser.textile: Updates a specific user
 ** "Get users permission":getPermissions.textile: List of actions and action points of a specific user
