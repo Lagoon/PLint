@@ -1,37 +1,35 @@
-h1. PLint
+h1. PLint - Play!Framework Lagoon(r) Security Interface Connector
 
-PLint is a connector module to easily integrate your applications with Lagoon(r) Security, which is an authentication/authorization system developed by XLM. 
+PLint is a connector module to easily integrate your applications with Lagoon(r) Security, which is an authentication/authorization system developed by "XLM - Innovation & Technology":http://xlm.pt. 
 This way manage your applications authentication and authorization is made very simple. 
 
 h2. How to use
 
 The following list enumerates the available methods, specifying input parameters and showing example outputs.
 
-*Note* If any of the following methods generates an error, a LintException is thrown.
+*Note*: If any of the following methods generates an error, a LintException is thrown.
 
 * Authentication
-** "sanitycheck()":sanitycheck.textile
+** "Sanitycheck":sanitycheck.textile: Tests connectivity to Lagoon(r) Security and version compatibility
 * Application Management
-** "showApp()":showApp.textile
+** "Show Application":showApp.textile: Retrieves information of application
 * Context Management
-** "getContexts()":getContexts.textile
-** "createContext(String name, String activationUrl, String url, String descritpion, boolean copyContext)":createContext.textile
-** "updateContext(String newName, String activationUrl, String url, String description, String oldName)":updateContext.textile
-** "showContext(String context)":showContext.textile
-** "deleteContext(String context)":deleteContext.textile
+** "List Contexts":getContexts.textile: Retrieves a list of configured contexts
+** "Create Context":createContext.textile: Creates a new context
+** "Update Context":updateContext.textile: Updates a specific context
+** "Show context":showContext.textile: Retrieves information of a specific context
+** "Delete Context":deleteContext.textile: Deletes a specific context
 * Profile Management
-** "getProfiles(String context)":getProfiles.textile
+** "List Profiles":getProfiles.textile: Retrieves a list of enabled profiles
 * User Management
-** "login(String user, String password, String context)":login.textile
-** "logout(Long userid, String context)":logout.textile
-** "createUser(String login, String email, String name, String context)":createUser1.textile
-** "createUser(String login, String email, String name, boolean ghost, String[] profiles, String context)":createUser2.textile
-** "registerUser(String password, String token, String context)":registerUser.textile
-** "activateUser(Long userid, String context)":activateUser.textile
-** "deactivateUser(Long userid, String context)":deactivateUser.textile
-** "reactivateUser(Long userid, String context)":reactivateUser.textile
-** "getUsers(String context)":getUsers.textile
-** "showUser(Long userid, String context)":showUser.textile
-** "updateUser(Long userid, String login, String email, String name, boolean ghost, String[] profiles, String context)":updateUser1.textile
-** "updateUser(Long userid, String login, String email, String name, String context)":updateUser2.textile
-** "getPermissions(Long userid, String context)":getPermissions.textile
+** "Login":login.textile: Login an user
+** "Logout":logout.textile: Logout an user
+** "Create User":createUser.textile: Creates a new user
+** "Register User":registerUser.textile: Registers an users password
+** "Activate User":activateUser.textile: Enables a disabled user
+** "Deactivate User":deactivateUser.textile: Disables an user
+** "Reactivate User":reactivateUser.textile: Enables an user who was never registered
+** "List Users":getUsers.textile: Retrieves a list of all users
+** "Show User":showUser.textile: Retrieves information of a specific user
+** "Update User":updateUser1.textile: Updates a specific user
+** "Get users permission":getPermissions.textile: List of actions and action points of a specific user
