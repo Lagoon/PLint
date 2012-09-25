@@ -1,0 +1,26 @@
+# Application dependencies
+
+require:
+    - play
+
+require:
+    - play
+    - play -> crud
+    - xlm -> plint 0.1beta
+    - xlm -> subdomainchecker 0.2
+    - xlm -> less 0.9.1
+    - joda-time -> joda-time-hibernate 1.3
+
+    
+repositories: 
+    - artifactory_xlm_zip:  
+        type:       http
+        artifact:   "http://maven.xlm.olimpo/repo/[module]-[revision].zip" 
+        contains:
+            - xlm -> *
+
+    - artifactory_xlm:  
+        type:       http
+        artifact:   "http://maven.xlm.olimpo/repo/[organization]/[module]/[revision]/[module]-[revision].[ext]" 
+        contains:
+            - joda-time -> *

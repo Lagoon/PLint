@@ -1,0 +1,21 @@
+#{extends 'main.html' /}
+<h2>UserPermissionss</h2>
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>Action</th>
+			<th>ActionPoint</th>
+			<th>Id</th>
+		</tr>
+	</thead>
+	<tbody>
+	#{list items:entities, as:'entity'}
+		<tr>
+			<td>${entity.action}</td>
+			<td>${entity.actionPoint}</td>
+			<td>${entity.id}</td>
+		</tr>
+	#{/list}
+	</tbody>
+</table>
+

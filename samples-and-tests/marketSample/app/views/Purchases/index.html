@@ -1,0 +1,27 @@
+#{extends 'main.html' /}
+<h2>Purchases</h2>
+<table class="table table-bordered">
+	<thead>
+		<tr>
+				<th>Buyer</th>
+				<th>Owner</th>
+				<th>Product</th>
+				<th>Price</th>
+				<th>Date</th>
+				<th>Id</th>
+		</tr>
+	</thead>
+	<tbody>
+	#{list items:entities, as:'entity'}
+		<tr>
+					<td>${entity.buyer}</td>
+					<td>${entity.product.owner}</td>
+					<td>${entity.product}</td>
+					<td>${entity.price}</td>
+					<td>${entity.created_at}</td>
+					<td>${entity.id}</td>
+		</tr>
+	#{/list}
+	</tbody>
+</table>
+

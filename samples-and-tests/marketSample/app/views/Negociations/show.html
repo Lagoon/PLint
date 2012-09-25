@@ -1,0 +1,46 @@
+#{extends 'main.html' /}
+<h2>View Negociation</h2>
+<div class="entity">
+	<div class="row">
+		<span class="elem">
+			product:
+		</span>
+		<span class="value">
+      ${entity.product}
+		</span>
+	</div>
+	<div class="row">
+		<span class="elem">
+			author:
+		</span>
+		<span class="value">
+      ${entity.author}
+		</span>
+	</div>
+	<div class="row">
+		<span class="elem">
+			created_at:
+		</span>
+		<span class="value">
+      ${entity.created_at}
+		</span>
+	</div>
+	<div class="row">
+		<span class="elem">
+			updated_at:
+		</span>
+		<span class="value">
+      ${entity.updated_at}
+		</span>
+	</div>
+	<div class="row">
+		<span class="elem">
+			id:
+		</span>
+		<span class="value">
+      ${entity.id}
+		</span>
+	</div>
+</div>
+<a href="@{Negociations.index}">Back</a>
+

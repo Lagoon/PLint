@@ -1,0 +1,10 @@
+#{extends 'main.html' /}
+<h2>View Context</h2>
+
+  <div class="label">Name</div>
+  <div class="field">
+      <input readonly="readonly" type="text" name="entity.name" value="${entity?.name}"/>
+  </div>
+  <span class="error">${errors.forKey('entity.name')}</span>
+ 
+<a href="@{Contexts.index}">Back</a>

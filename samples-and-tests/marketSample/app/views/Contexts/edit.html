@@ -1,0 +1,10 @@
+#{extends 'main.html' /}
+<h2>Edit Context</h2>
+<div class="entity">
+#{form @Contexts.update(), id:'createForm'}
+	#{include 'Contexts/_form.html' /}
+	<input type="submit" name="submit" value="Save" />
+#{/form}
+</div>
+<a href="@{Contexts.index}">Cancel</a>
+

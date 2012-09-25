@@ -1,0 +1,34 @@
+
+#{extends 'main.html' /}
+<h2>Users</h2>
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th><!-- actions --></th>
+				<th>Name</th>
+				<th>Email</th>
+				<th>Login</th>
+				<th>Context</th>
+				<th>Id</th>
+		</tr>
+	</thead>
+	<tbody>
+	#{list items:entities, as:'entity'}
+		<tr>
+			<td>
+				<a href="@{Users.show(entity.id)}">Show</a>&nbsp;
+				<a href="@{Permissions.index(entity.id)}">Permissions</a>&nbsp;
+				<a href="@{Users.deactivate(entity.id)}">Deactivate</a>&nbsp;
+				<a href="@{Users.activate(entity.id)}">Activate</a>&nbsp;
+				<a href="@{Users.reactivate(entity.id)}">Reactivate</a>
+			</td>
+					<td>${entity.userLagoon.name}</td>
+					<td>${entity.userLagoon.email}</td>
+					<td>${entity.userLagoon.login}</td>
+					<td>${entity.context}</td>
+					<td>${entity.id}</td>
+		</tr>
+	#{/list}
+	</tbody>
+</table>
+

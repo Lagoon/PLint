@@ -1,0 +1,29 @@
+#{extends 'main.html' /}
+<h2>View User</h2>
+
+  <div class="label">Name</div>
+  <div class="field">
+      <input readonly="readonly" type="text" name="entity.userLagoon.name" value="${entity?.userLagoon?.name}"/>
+  </div>
+  <span class="error">${errors.forKey('entity.userLagoon..name')}</span>
+
+
+  <div class="label">Email</div>
+  <div class="field">
+      <input readonly="readonly" type="text" name="entity.userLagoon.email" value="${entity?.userLagoon?.email}"/>
+  </div>
+  <span class="error">${errors.forKey('entity.userLagoon.email')}</span>
+
+  <div class="label">Login</div>
+  <div class="field">
+      <input readonly="readonly" type="text" name="entity.userLagoon.login" value="${entity?.userLagoon?.login}"/>
+  </div>
+  <span class="error">${errors.forKey('entity.userLagoon.login')}</span>
+
+  <div class="label"></div>
+  <div class="field">
+      <input readonly="readonly" type="hidden" name="entity.id" value="${entity?.id}"/>
+  </div>
+  
+<a href="@{Users.index}">Back</a>
+
