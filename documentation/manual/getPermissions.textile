@@ -58,3 +58,5 @@ bc. [
         }
     }
 ]
+
+"Back": home.textile

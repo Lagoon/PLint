@@ -9,3 +9,5 @@ This method returns true if following conditions are satisfied:
 * API version is supported
 
 If one or more of this conditions fail, the method returns false. If this happens consult the log file for explaining error messages. 
+
+"Back": home.textile

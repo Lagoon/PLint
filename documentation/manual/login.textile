@@ -8,3 +8,5 @@ Returns: id of the authenticated user or throws a LintException in case of no su
 bc. user: login of the user to authenticate
 password: password of the user to authenticate
 context: context in which user is inserted
+
+"Back": home.textile

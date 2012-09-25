@@ -17,9 +17,9 @@ bc. [
         "id": 4,
         "enable":true,
         "defaultContext": false,
-        "name": "xcoisas",
+        "name": "marketSample",
         "description": "",
-        "activationUrl": "http://xcoisas.lvh.me:9000/activation",
+        "activationUrl": "http://marketSample.lvh.me:9000/activation",
         "url": ""
     },
     {
@@ -32,3 +32,5 @@ bc. [
         "url": ""
     }
 ]
+
+"Back": home.textile

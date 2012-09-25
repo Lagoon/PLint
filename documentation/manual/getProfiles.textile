@@ -22,3 +22,5 @@ bc. [
         "name": "guest"
     }
 ]
+
+"Back": home.textile

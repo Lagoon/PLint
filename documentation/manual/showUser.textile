@@ -26,3 +26,5 @@ bc. {
         }
     ]
 }
+
+"Back": home.textile

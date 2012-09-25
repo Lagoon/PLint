@@ -12,3 +12,5 @@ bc. context: name of the context to delete
 bc. {
     "success": true
 }
+
+"Back": home.textile

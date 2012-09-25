@@ -7,3 +7,5 @@ Returns true/false in case of success/error
 
 bc. userid: id of the user to logout
 context: context in which user is inserted
+
+"Back": home.textile

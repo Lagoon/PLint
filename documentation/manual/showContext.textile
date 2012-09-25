@@ -18,3 +18,5 @@ bc. {
     "activationUrl": "",
     "url": ""
 }
+
+"Back": home.textile

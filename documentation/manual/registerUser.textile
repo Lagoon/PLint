@@ -63,3 +63,5 @@ bc. {
         }
     ]
 }
+
+"Back": home.textile

@@ -9,10 +9,12 @@ bc. {
      "notify": true,
      "activationUrl": "",
      "description": "",
-     "name": "xcoisas_env",
+     "name": "marketSample_env",
      "url": "",
      "application": {
         "description": "buy and sell your products",
-        "name": "xcoisas" 
+        "name": "marketSample" 
     }
 }
+
+"Back": home.textile

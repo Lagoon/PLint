@@ -1,4 +1,4 @@
-h1. PLint - Play!Framework Lagoon(r) Security Interface Connector
+h1. PLint - Play!Framework 1.x Lagoon(r) Security Interface Connector
 
 PLint is a connector module to easily integrate your applications with Lagoon(r) Security, which is an authentication/authorization system developed by "XLM - Innovation & Technology":http://xlm.pt. 
 This way manage your applications authentication and authorization is made very simple. 
