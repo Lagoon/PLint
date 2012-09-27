@@ -3,7 +3,7 @@ self: play -> plint 0.1beta
 require:
     - play
     - play -> less 0.9.1
-    - com.lagoon -> subdomainchecker 0.2 
+    - lagoon -> subdomainchecker 0.2
 
 repositories:
     - artifactory_xlm_zip:  
@@ -14,6 +14,6 @@ repositories:
     
     - lagoon: 
         type:       http 
-        artifact:   "http://cloud.github.com/downloads/[organization]/[module]/[module]-[revision].zip" 
+        artifact:   "http://cloud.github.com/downloads/Lagoon/subdomainchecker/[module]-[revision].zip" 
         contains: 
-            - com.lagoon -> * 
+            - lagoon -> *

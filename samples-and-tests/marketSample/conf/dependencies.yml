@@ -7,7 +7,7 @@ require:
     - play
     - play -> crud
     - PLint -> PLint
-    - com.lagoon -> subdomainchecker 0.2
+    - lagoon -> subdomainchecker 0.2
     - play -> less 0.9.1
     - joda-time -> joda-time-hibernate 1.3
 
@@ -33,6 +33,6 @@ repositories:
    
     - lagoon: 
         type:       http 
-        artifact:   "http://cloud.github.com/downloads/[organization]/[module]/[module]-[revision].zip" 
+        artifact:   "http://cloud.github.com/downloads/Lagoon/subdomainchecker/[module]-[revision].zip" 
         contains: 
-            - com.lagoon -> * 
+            - lagoon -> *

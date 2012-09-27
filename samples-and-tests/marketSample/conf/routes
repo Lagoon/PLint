@@ -12,7 +12,7 @@ GET     /favicon.ico                            404
 GET     /public/                                staticDir:public
 
 # Import Secure routes
-*       /                                       module:plint
+*       /                                       module:PLint
 
 POST	/register								Lintity.registerUser
 GET		/register								Lintity.register

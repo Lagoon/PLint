@@ -37,7 +37,7 @@ lint.login=loginLagoon // Provided LS Login
 lint.password=passwordLagoon // Provided LS password
 </pre>
 
-The baseUrl, login and password will be provided after registration.
+The baseUrl, login and password will be provided after registration. To check your credentials please go to "Lagoon(r) Security":https://demo.lagoonsecurity.dyndns.org:9091
 
 h2. How to use
 
@@ -53,4 +53,4 @@ The URL to enter the test application as administrator (access marketSample admi
 
 To enter as a normal user the URL is: @http://marketSample.lvh.me:9000@, here you can register (just store login and password) the application users.
 
-Go to Lagoon(r) Security so you can change the access configurations of the users from marketSample to the several resources.
+Go to "Lagoon(r) Security":https://demo.lagoonsecurity.dyndns.org:9091 so you can change the access configurations of the users from marketSample to the several resources.
