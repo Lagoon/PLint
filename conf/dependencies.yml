@@ -6,11 +6,6 @@ require:
     - lagoon -> subdomainchecker 0.2
 
 repositories:
-    - artifactory_xlm_zip:  
-        type:       http
-        artifact:   "http://maven.xlm.olimpo/repo/[module]-[revision].zip" 
-        contains:
-            - xlm -> *
     
     - lagoon: 
         type:       http 

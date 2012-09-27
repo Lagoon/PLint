@@ -19,18 +19,6 @@ repositories:
        contains:
             - PLint
 
-    - artifactory_xlm_zip:  
-        type:       http
-        artifact:   "http://maven.xlm.olimpo/repo/[module]-[revision].zip" 
-        contains:
-            - xlm -> *
-
-    - artifactory_xlm:  
-        type:       http
-        artifact:   "http://maven.xlm.olimpo/repo/[organization]/[module]/[revision]/[module]-[revision].[ext]" 
-        contains:
-            - joda-time -> *
-   
     - lagoon: 
         type:       http 
         artifact:   "http://cloud.github.com/downloads/Lagoon/subdomainchecker/[module]-[revision].zip" 
