@@ -2,8 +2,8 @@ self: play -> plint 0.1beta
 
 require:
     - play
-    - xlm -> subdomainchecker 0.2
-    - xlm -> less 0.9.1
+    - play -> less 0.9.1
+    - com.lagoon -> subdomainchecker 0.2 
 
 repositories:
     - artifactory_xlm_zip:  
@@ -11,3 +11,9 @@ repositories:
         artifact:   "http://maven.xlm.olimpo/repo/[module]-[revision].zip" 
         contains:
             - xlm -> *
+    
+    - lagoon: 
+        type:       http 
+        artifact:   "http://cloud.github.com/downloads/[organization]/[module]/[module]-[revision].zip" 
+        contains: 
+            - com.lagoon -> * 
