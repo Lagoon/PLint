@@ -52,8 +52,8 @@ public class MyController extends Controller{
 
 To use default PLint routes, in the conf/routes file, import the default module routes by adding this line:
 
-# Import Secure routes
-*      /                module:PLint
+@*      /                module:PLint@
+
 
 *Custom Controller Protection*
 You already have your own login panels? No problem use the following annotation to the controllers you want to be protected:
