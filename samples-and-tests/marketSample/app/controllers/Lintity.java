@@ -11,7 +11,7 @@ import play.data.validation.Required;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
-public class Lintity extends Lint.Lintity {
+public class Lintity extends SecureLint.Lintity {
 
 	public static void registerUser(@Required String username, @Required String email, @Required String name) {
 
@@ -25,7 +25,7 @@ public class Lintity extends Lint.Lintity {
 		} catch(Exception ex) {
 
 			Application.doFlashError(ex.getMessage());
-			renderTemplate("Lint/Lintity/register.html");
+			renderTemplate("SecureLint/Lintity/register.html");
 		}
 
 		UserLagoon userLagoon = UserLagoon.findByExternalID(resp.getAsJsonObject().get("id").getAsLong());
@@ -48,19 +48,19 @@ public class Lintity extends Lint.Lintity {
 
 		user.save();
 		flash.success("User successfully created. View your email inbox.");
-		renderTemplate("Lint/login.html");
+		renderTemplate("SecureLint/login.html");
 	}
 
 	public static void activateUser(@Required String password, @Required String passwordConf, String token) throws Exception {
 		if(!password.equals(passwordConf)) {
 			Application.doFlashError("Passwords don't match");
-			renderTemplate("Lint/Lintity/activation.html", token);
+			renderTemplate("SecureLint/Lintity/activation.html", token);
 		}
 
 		String context = SubdomainChecker.currentSubdomain(request);
 		LintRobot.registerUser(password, token, context);
 		flash.success("User successfully registered.");
-		renderTemplate("Lint/login.html");
+		renderTemplate("SecureLint/login.html");
 	}
 
 	public static Context currentContext() {

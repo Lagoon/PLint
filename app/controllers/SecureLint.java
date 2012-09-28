@@ -117,11 +117,11 @@ public class SecureLint extends Controller {
 	public static class Lintity extends Controller {
 
 		public static void register() {
-			renderTemplate("Lint/Lintity/register.html");
+			renderTemplate("SecureLint/Lintity/register.html");
 		}
 
 		public static void activation(String token) {
-			renderTemplate("Lint/Lintity/activation.html", token);
+			renderTemplate("SecureLint/Lintity/activation.html", token);
 		}
 
 		public static void registerUser(@Required String username, @Required String email, @Required String name) throws Exception {
