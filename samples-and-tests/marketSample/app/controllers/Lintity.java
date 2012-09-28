@@ -64,6 +64,8 @@ public class Lintity extends Lint.Lintity {
 	}
 
 	public static Context currentContext() {
+		System.out.println("SUBDOMAIN: " + SubdomainChecker.currentSubdomain(request));
+		System.out.println(Context.findByName(SubdomainChecker.currentSubdomain(request)));
 		return Context.findByName(SubdomainChecker.currentSubdomain(request));
 	}
 

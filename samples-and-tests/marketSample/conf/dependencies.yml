@@ -2,9 +2,6 @@
 
 require:
     - play
-
-require:
-    - play
     - play -> crud
     - PLint -> PLint
     - lagoon -> subdomainchecker 0.2

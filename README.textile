@@ -41,6 +41,29 @@ The baseUrl, login and password will be provided after registration. To check yo
 
 h2. How to use
 
+*Automatic Controller Protection*
+To secure your controllers with Lagoon(r) Security and use the provided login panels, the following annotation must be added to the controller to protect it:
+
+<pre>
+@With(SecureLint.class)
+public class MyController extends Controller{
+}
+</pre> 
+
+*Custom Controller Protection*
+You already have your own login panels? No problem use the following annotation to the controllers you want to be protected:
+
+<pre>
+@With(Lint.class)
+public class MyController extends Controller{
+}
+</pre> 
+
+In this option the external user id (Lagoon user ID) must be added to the session with the key *id*. If your application is configured to use contexts, you also need to add to the session the context name with the key *context*.
+
+*Advanced Controller Protection*
+If you want to control access at your own or for more advanced operations, use the *LintRobot* class methods, in your controllers.
+
 To check the available methods of PLint see the "documentation":PLint/blob/master/documentation/manual/home.textile.
 
 h2. Example Application

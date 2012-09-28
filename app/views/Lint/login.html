@@ -30,7 +30,7 @@
 		</p>
 		<p id="signin-field">
 			<input type="submit" id="signin" value="&{'lint.signin'}" />
-			#{if !utils.LintConf.getSubdomain(request).equals("admin")}
+			#{if !helpers.SubdomainChecker.currentSubdomain(request).equals("admin")}
 				<a href="@{Lintity.register()}">Register</a>
 			#{/if}
 		</p>

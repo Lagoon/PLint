@@ -9,7 +9,7 @@ import play.mvc.Util;
 import play.mvc.With;
 import exceptions.LintException;
 
-@With(Lint.class)
+@With(SecureLint.class)
 public class Application extends Controller {
 
 	public static void index() {

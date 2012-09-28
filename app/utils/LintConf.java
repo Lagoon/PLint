@@ -1,7 +1,6 @@
 package utils;
 
 import groovy.lang.Singleton;
-import helpers.subdomainchecker.SubdomainChecker;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,9 +34,6 @@ public class LintConf {
 	 */
 	protected static LintArgs lintArgs = null;
 
-	public static String getSubdomain(Request request) {
-		return SubdomainChecker.currentSubdomain(request);
-	}
 
 	/**
 	 * Lint args

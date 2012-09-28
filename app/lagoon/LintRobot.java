@@ -1,7 +1,5 @@
 package lagoon;
 
-import helpers.subdomainchecker.SubdomainChecker;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,7 +15,6 @@ import play.libs.WS;
 import play.libs.WS.HttpResponse;
 import play.libs.WS.WSRequest;
 import play.mvc.Http.Request;
-import play.mvc.Util;
 import utils.LintConf;
 
 import com.google.gson.Gson;
@@ -42,14 +39,14 @@ public class LintRobot {
 	 * @throws LintException
 	 * @throws TimeoutException
 	 */
-	public static boolean checkRequest(Request request, Long userid) throws LintException, TimeoutException {
+	public static boolean checkRequest(Request request, Long userid, String context) throws LintException, TimeoutException {
 		// SanityCheck
 		if (!checkConnection()) {
 			return false;
 		}
 
 		// Verify access for controller and action
-		return checkTest(request.action, userid) ? true : false;
+		return checkActionAccess(request.action, userid, context) ? true : false;
 	}
 
 	/**
@@ -330,34 +327,6 @@ public class LintRobot {
 	}
 
 	// **************** Utils ***************************
-
-	/**
-	 * Get all user permissions
-	 * 
-	 * @return
-	 * @throws LintException
-	 * @throws TimeoutException
-	 */
-	@Util
-	private static ArrayList<String> getPermissions(Long userid) throws LintException, TimeoutException {
-
-		String context = SubdomainChecker.currentSubdomain(Request.current());
-		JsonElement elem = getPermissions(userid, context);
-
-		ArrayList<String> perms = new ArrayList<String>();
-		Gson gson = new Gson();
-		Permission[] permissions = gson.fromJson(elem, models.Permission[].class);
-		for (Permission permission : permissions) {
-			Map<String, List<String>> acMap = permission.getAction_aps();
-			for (String action : acMap.keySet()) {
-				for (String ap : acMap.get(action)) {
-					perms.add(action + "." + ap);
-				}
-			}
-		}
-		return perms;
-	}
-
 	/**
 	 * sanitycheck functionality with version
 	 * 
@@ -439,12 +408,22 @@ public class LintRobot {
 	 * @throws LintException
 	 * @throws TimeoutException
 	 */
-	private static boolean checkTest(String controlerAction, Long userid) throws LintException, TimeoutException {
+	private static boolean checkActionAccess(String controlerAction, Long userid, String context) throws LintException, TimeoutException {
+		JsonElement elem = getPermissions(userid, context);
 
-		ArrayList<String> array = getPermissions(userid);
-		Logger.info(controlerAction);
-		Logger.debug(Arrays.asList(array).toString());
-		if (array.contains(controlerAction)) {
+		ArrayList<String> perms = new ArrayList<String>();
+		Gson gson = new Gson();
+		Permission[] permissions = gson.fromJson(elem, models.Permission[].class);
+		for (Permission permission : permissions) {
+			Map<String, List<String>> acMap = permission.getAction_aps();
+			for (String action : acMap.keySet()) {
+				for (String ap : acMap.get(action)) {
+					perms.add(action + "." + ap);
+				}
+			}
+		}
+		Logger.debug(Arrays.asList(perms).toString());
+		if (perms.contains(controlerAction)) {
 			return true;
 		} else {
 			return false;
