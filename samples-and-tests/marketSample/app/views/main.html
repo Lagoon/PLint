@@ -84,7 +84,7 @@
 		 #{/if}
 		 <a href="@{Application.index}">Home</a>
           #{if session.username}
-				<p class="pull-right">Logged in as ${session.username}&nbsp;|&nbsp;#{a @Lint.logout()}Logout#{/a}</p>
+				<p class="pull-right">Logged in as ${session.username}&nbsp;|&nbsp;#{a @SecureLint.logout()}Logout#{/a}</p>
 		  #{/if}
 		  #{else}
           <form action="" class="pull-right">

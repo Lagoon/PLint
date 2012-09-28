@@ -5,6 +5,6 @@
 #
 # ~~~~
 
-GET			/login						Lint.login
-POST        /login          			Lint.authenticate
-GET         /logout         			Lint.logout
+GET			/login						SecureLint.login
+POST        /login          			SecureLint.authenticate
+GET         /logout         			SecureLint.logout

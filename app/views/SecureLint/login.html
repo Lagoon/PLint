@@ -1,9 +1,9 @@
-#{extends 'Lint/layout.html' /}
+#{extends 'SecureLint/layout.html' /}
 
 <div id="login">
 	
 	<h1>${play.configuration['application.name']}</h1>
-	#{form @Lint.authenticate()}
+	#{form @SecureLint.authenticate()}
 		
 		#{if flash.error}
 			<p class="error">

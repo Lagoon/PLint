@@ -28,10 +28,11 @@ public class SecureLint extends Controller {
 	static void checkAccess() throws Throwable {
 
 		// Check Authentication
-		if (!session.contains("username")) {
+		if (!session.contains("username") || !session.contains("id")) {
 			flash.put("url", "GET".equals(request.method) ? request.url : "/");
 			login();
 		}
+
 		// Check Authorization
 		if (!LintRobot.checkRequest(request, Long.parseLong(session.get("id")),SubdomainChecker.currentSubdomain(request))) {
 			Lintity.invoke("onCheckFailed");

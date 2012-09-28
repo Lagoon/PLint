@@ -174,7 +174,7 @@ public class LintRobot {
 
 	/**
 	 * Reactivate user on Lagoon
-	 * 
+	 * Logger.debug(partialUrl);
 	 * @param userid
 	 * @return
 	 * @throws LintException
@@ -365,7 +365,7 @@ public class LintRobot {
 		request.headers.put("accept", "application/" + contentType);
 		request.authenticate(LintConf.LOGIN, LintConf.PASSWORD);
 		request.body(body);
-
+		Logger.debug(partialUrl);
 		HttpResponse response = null;
 
 		if (method.equals(HttpMethod.GET)) {
