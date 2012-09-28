@@ -79,6 +79,6 @@ The URL to enter the test application as administrator (access marketSample admi
 @login: admin@
 @password: admin@
 
-To enter as a normal user the URL is: @http://marketSample.lvh.me:9000@, here you can register (just store login and password) the application users.
+To enter as a normal user the URL is: @http://marketsample.lvh.me:9000@, here you can register (just store login and password) the application users.
 
 Go to "Lagoon(r) Security":https://demo.lagoonsecurity.dyndns.org:9091 so you can change the access configurations of the users from marketSample to the several resources.
