@@ -327,6 +327,53 @@ public class LintUser extends LintRobot {
 	}
 
 	/**
+	 * List information of the designated user
+	 * 
+	 * @param userid
+	 * @return
+	 * @throws LintException
+	 * @throws TimeoutException
+	 */
+	public static JsonElement deleteUser(Long userid, String context) throws LintException, TimeoutException {
+
+		String partialUrl;
+		if (context == null) {
+			partialUrl = "users/" + userid;
+		} else {
+			partialUrl = "contexts/" + context + "/users/" + userid;
+		}
+		// send request
+		HttpResponse resp = sendRequest(partialUrl, null, LintConf.CONTENT_TYPE, HttpMethod.DELETE);
+		return resp.getJson();
+	}
+
+	/**
+	 * User password recovery
+	 * 
+	 * @param login
+	 * @param context
+	 * @return
+	 * @throws LintException
+	 * @throws TimeoutException
+	 */
+	public static JsonElement passwordRecovery(String email, String context) throws LintException, TimeoutException {
+
+		// Build Body
+		JsonObject bodyObj = new JsonObject();
+		bodyObj.addProperty("email", email);
+
+		String partialUrl;
+		if (context == null) {
+			partialUrl = "users/password_recovery";
+		} else {
+			partialUrl = "contexts/" + context + "/users/password_recovery";
+		}
+		// send request
+		HttpResponse resp = sendRequest(partialUrl, bodyObj.toString(), LintConf.CONTENT_TYPE, HttpMethod.POST);
+		return resp.getJson();
+	}
+
+	/**
 	 * Update a designated user
 	 * 
 	 * @param userid

@@ -21,6 +21,9 @@
 				<a href="@{Users.deactivate(entity.id)}">Deactivate</a>&nbsp;
 				<a href="@{Users.activate(entity.id)}">Activate</a>&nbsp;
 				<a href="@{Users.reactivate(entity.id)}">Reactivate</a>
+				<form action="@{Users.delete(entity.id)}" method="POST">
+					<input type="submit" value="Delete it!" id="deleteIt" />
+				</form>
 			</td>
 					<td>${entity.userLagoon.name}</td>
 					<td>${entity.userLagoon.email}</td>
@@ -31,4 +34,3 @@
 	#{/list}
 	</tbody>
 </table>
-

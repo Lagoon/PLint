@@ -11,6 +11,9 @@ import play.data.validation.Required;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
+import exceptions.LintException;
+import java.util.concurrent.TimeoutException;
+
 public class Lintity extends SecureLint.Lintity {
 
 	public static void registerUser(@Required String username, @Required String email, @Required String name) {
@@ -62,10 +65,20 @@ public class Lintity extends SecureLint.Lintity {
 		flash.success("User successfully registered.");
 		renderTemplate("SecureLint/login.html");
 	}
+	
+	public static void resendPassword(@Required String email) {
+		String context = SubdomainChecker.currentSubdomain(request);
+		try{
+			LintRobot.passwordRecovery(email, context);
+			flash.success("Password successfully resended.");
+		}catch (LintException | TimeoutException ex){
+			Application.doFlashError(ex.getMessage());
+			renderTemplate("SecureLint/Lintity/password_recovery.html");
+		}
+		renderTemplate("SecureLint/login.html");
+	}
 
 	public static Context currentContext() {
-		System.out.println("SUBDOMAIN: " + SubdomainChecker.currentSubdomain(request));
-		System.out.println(Context.findByName(SubdomainChecker.currentSubdomain(request)));
 		return Context.findByName(SubdomainChecker.currentSubdomain(request));
 	}
 

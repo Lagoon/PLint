@@ -34,7 +34,7 @@ public class Lint extends Controller {
 		 */
 		static void beforeCheckAccess() {
 		}
-		
+
 		/**
 		 * This method is called if a check does not succeed. By default it shows the not allowed page (the controller forbidden method).
 		 */
@@ -42,20 +42,20 @@ public class Lint extends Controller {
 			Logger.debug("Access Denied to " + request.action);
 			forbidden();
 		}
-		
+
 		/**
 		 * This method is called if a check succeed.
 		 */
 		static void onCheckSuccess() {
 			Logger.debug("Access Granted to " + request.action);
 		}
-		
+
 		/**
 		 * This method is called after check request access is verified.
 		 */
 		static void afterCheckAccess() {
 		}
-		
+
 		private static Object invoke(String m, Object... args) throws Throwable {
 
 			try {

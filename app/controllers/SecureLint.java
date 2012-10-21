@@ -124,11 +124,19 @@ public class SecureLint extends Controller {
 			renderTemplate("SecureLint/Lintity/activation.html", token);
 		}
 
+		public static void passwordRecovery() {
+			renderTemplate("SecureLint/Lintity/password_recovery.html");
+		}
+
 		public static void registerUser(@Required String username, @Required String email, @Required String name) throws Exception {
 			throw new UnsupportedOperationException();
 		}
 
 		public static void activateUser(@Required String passowrd, @Required String passwordConf, String token) throws Exception {
+			throw new UnsupportedOperationException();
+		}
+
+		public static void resendPassword(@Required String username) throws Exception {
 			throw new UnsupportedOperationException();
 		}
 

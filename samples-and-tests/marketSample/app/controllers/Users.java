@@ -69,6 +69,13 @@ public class Users extends Application {
 		doFlashSuccess("User deactivated");
 		index();
 	}
+	
+	public static void delete(Long id) throws TimeoutException, LintException {
+		User user = User.findById(id);
+		LintRobot.deleteUser(user.userLagoon.id, user.context.name);
+		doFlashSuccess("User deleted");
+		index();
+	}
 
 	public static void activate(Long id) throws LintException, TimeoutException {
 		User user = User.findById(id);

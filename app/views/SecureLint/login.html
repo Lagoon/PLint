@@ -28,6 +28,7 @@
 			<input type="checkbox" name="remember" id="remember" value="true" ${flash.remember ? 'checked="true"' : ''} />
 			<label for="remember">&{'lint.remember'}</label>
 		</p>
+		#{a @Lintity.passwordRecovery()}&{'lint.password.recovery'}#{/a}
 		<p id="signin-field">
 			<input type="submit" id="signin" value="&{'lint.signin'}" />
 			#{if !helpers.SubdomainChecker.currentSubdomain(request).equals("admin")}

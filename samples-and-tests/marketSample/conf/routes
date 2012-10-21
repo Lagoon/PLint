@@ -18,6 +18,8 @@ POST	/register								Lintity.registerUser
 GET		/register								Lintity.register
 GET	    /activation/{token}						Lintity.activation
 POST	/activation								Lintity.activateUser
+POST  	/password_recovery						Lintity.resendPassword
+GET  	/password_recovery						Lintity.passwordRecovery
 
 #Users
 GET		/users									Users.index
@@ -30,6 +32,7 @@ GET		/users/create							Users.create
 GET		/users/{<[0-9]+>id}/deactivate			Users.deactivate
 GET		/users/{<[0-9]+>id}/activate			Users.activate
 GET		/users/{<[0-9]+>id}/reactivate			Users.reactivate
+POST	/users/{<[0-9]+>id}/delete				Users.delete
 
 #Permissions
 GET		/users/{<[0-9]+>id}/permissions			Permissions.index

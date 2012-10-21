@@ -9,3 +9,5 @@ lint.password=Password
 lint.remember=Remember me
 lint.signin=Sign in
 lint.username=Username
+lint.email=Email
+lint.password.recovery=Forgot password?
