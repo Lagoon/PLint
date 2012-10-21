@@ -32,7 +32,7 @@ import exceptions.LintException;
 public class LintRobot {
 
 	/**
-	 * check if the current user has access to request controller and action
+	 * check if the current user has access to request controller and action with context
 	 * 
 	 * @param request
 	 * @return true if is
@@ -47,6 +47,10 @@ public class LintRobot {
 
 		// Verify access for controller and action
 		return checkActionAccess(request.action, userid, context) ? true : false;
+	}
+
+	public static boolean checkRequest(Request request, Long userid) throws LintException, TimeoutException {
+		return checkRequest(request, userid, null);
 	}
 
 	/**
@@ -71,14 +75,22 @@ public class LintRobot {
 		return LintUser.login(user, password, context);
 	}
 
+	public static Object login(String user, String password) throws LintException, TimeoutException {
+		return login(user, password, null);
+	}
+
 	/**
-	 * User Logout on Lagoon
+	 * User Logout on Lagoon with context
 	 * 
 	 * @throws LintException
 	 * @throws TimeoutException
 	 */
 	public static boolean logout(Long userid, String context) throws LintException, TimeoutException {
 		return LintUser.logout(userid, context);
+	}
+
+	public static boolean logout(Long userid) throws LintException, TimeoutException {
+		return logout(userid, null);
 	}
 
 	// **************** Application Management Methods ***************************
@@ -95,7 +107,7 @@ public class LintRobot {
 
 	// **************** Profile Management Methods ***************************
 	/**
-	 * Return all active profiles
+	 * Return all active profiles on context
 	 * 
 	 * @return
 	 * @throws LintException
@@ -103,6 +115,10 @@ public class LintRobot {
 	 */
 	public static JsonElement getProfiles(String context) throws LintException, TimeoutException {
 		return LintProfiles.getProfiles(context);
+	}
+
+	public static JsonElement getProfiles() throws LintException, TimeoutException {
+		return getProfiles(null);
 	}
 
 	// **************** User Management Methods ***************************
@@ -118,6 +134,10 @@ public class LintRobot {
 	 */
 	public static JsonElement createUser(String login, String email, String name, String context) throws LintException, TimeoutException {
 		return LintUser.createUser(login, email, name, context);
+	}
+
+	public static JsonElement createUser(String login, String email, String name) throws LintException, TimeoutException {
+		return createUser(login, email, name, null);
 	}
 
 	/**
@@ -136,6 +156,10 @@ public class LintRobot {
 		return LintUser.createUser(login, email, name, ghost, profiles, context);
 	}
 
+	public static JsonElement createUser(String login, String email, String name, boolean ghost, String[] profiles) throws LintException, TimeoutException {
+		return createUser(login, email, name, ghost, profiles, null);
+	}
+
 	/**
 	 * Register user on Lagoon
 	 * 
@@ -146,6 +170,10 @@ public class LintRobot {
 	 */
 	public static JsonElement registerUser(String password, String token, String context) throws LintException, TimeoutException {
 		return LintUser.registerUser(password, token, context);
+	}
+
+	public static JsonElement registerUser(String password, String token) throws LintException, TimeoutException {
+		return registerUser(password, token, null);
 	}
 
 	/**
@@ -160,6 +188,10 @@ public class LintRobot {
 		return LintUser.activateUser(userid, context);
 	}
 
+	public static JsonElement activateUser(Long userid) throws LintException, TimeoutException {
+		return activateUser(userid, null);
+	}
+
 	/**
 	 * Deactivate user on Lagoon
 	 * 
@@ -172,9 +204,13 @@ public class LintRobot {
 		return LintUser.deactivateUser(userid, context);
 	}
 
+	public static JsonElement deactivateUser(Long userid) throws LintException, TimeoutException {
+		return deactivateUser(userid);
+	}
+
 	/**
 	 * Reactivate user on Lagoon
-	 * Logger.debug(partialUrl);
+	 * 
 	 * @param userid
 	 * @return
 	 * @throws LintException
@@ -182,6 +218,26 @@ public class LintRobot {
 	 */
 	public static JsonElement reactivateUser(Long userid, String context) throws LintException, TimeoutException {
 		return LintUser.reactivateUser(userid, context);
+	}
+
+	public static JsonElement reactivateUser(Long userid) throws LintException, TimeoutException {
+		return reactivateUser(userid, null);
+	}
+
+	/**
+	 * Password Recovery
+	 * 
+	 * @param login
+	 * @return
+	 * @throws LintException
+	 * @throws TimeoutException
+	 */
+	public static JsonElement passwordRecovery(String email, String context) throws LintException, TimeoutException {
+		return LintUser.passwordRecovery(email, context);
+	}
+
+	public static JsonElement passwordRecovery(String email) throws LintException, TimeoutException {
+		return passwordRecovery(email, null);
 	}
 
 	/**
@@ -195,6 +251,10 @@ public class LintRobot {
 		return LintUser.getUsers(context);
 	}
 
+	public static JsonElement getUsers() throws LintException, TimeoutException {
+		return getUsers(null);
+	}
+
 	/**
 	 * List information of the designated user
 	 * 
@@ -205,6 +265,10 @@ public class LintRobot {
 	 */
 	public static JsonElement showUser(Long userid, String context) throws LintException, TimeoutException {
 		return LintUser.showUser(userid, context);
+	}
+
+	public static JsonElement showUser(Long userid) throws LintException, TimeoutException {
+		return showUser(userid, null);
 	}
 
 	/**
@@ -225,6 +289,10 @@ public class LintRobot {
 		return LintUser.updateUser(userid, login, email, name, ghost, profiles, context);
 	}
 
+	public static JsonElement updateUser(Long userid, String login, String email, String name, boolean ghost, String[] profiles) throws LintException, TimeoutException {
+		return updateUser(userid, login, email, name, ghost, profiles, null);
+	}
+
 	/**
 	 * Update a designated user (with mandatory args only)
 	 * 
@@ -240,6 +308,27 @@ public class LintRobot {
 		return LintUser.updateUser(userid, login, email, name, context);
 	}
 
+	public static JsonElement updateUser(Long userid, String login, String email, String name) throws LintException, TimeoutException {
+		return updateUser(userid, login, email, name, null);
+	}
+
+	/**
+	 * delete permanently a user
+	 * 
+	 * @param userid
+	 * @param context
+	 * @return
+	 * @throws TimeoutException
+	 * @throws LintException
+	 */
+	public static JsonElement deleteUser(Long userid, String context) throws LintException, TimeoutException {
+		return LintUser.deleteUser(userid, context);
+	}
+
+	public static JsonElement deleteUser(Long userid) throws LintException, TimeoutException {
+		return deleteUser(userid, null);
+	}
+
 	// **************** Permission Management Methods ***************************
 
 	/**
@@ -253,6 +342,10 @@ public class LintRobot {
 	 */
 	public static JsonElement getPermissions(Long userid, String context) throws LintException, TimeoutException {
 		return LintPermissions.getPermissions(userid, context);
+	}
+
+	public static JsonElement getPermissions(Long userid) throws LintException, TimeoutException {
+		return getPermissions(userid, null);
 	}
 
 	// **************** Context Management Methods ***************************
