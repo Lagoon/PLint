@@ -31,7 +31,7 @@
 		#{a @Lintity.passwordRecovery()}&{'lint.password.recovery'}#{/a}
 		<p id="signin-field">
 			<input type="submit" id="signin" value="&{'lint.signin'}" />
-			#{if !helpers.SubdomainChecker.currentSubdomain(request).equals("admin")}
+			#{if !helpers.SubdomainCheck.currentSubdomain(request).equals("admin")}
 				<a href="@{Lintity.register()}">Register</a>
 			#{/if}
 		</p>

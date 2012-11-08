@@ -241,6 +241,22 @@ public class LintRobot {
 	}
 
 	/**
+	 * Change User Password
+	 * 
+	 * @param login
+	 * @return
+	 * @throws LintException
+	 * @throws TimeoutException
+	 */
+	public static JsonElement changeUserPassword(Long userid, String currentPass, String newPass, String context) throws LintException, TimeoutException {
+		return LintUser.changePassword(userid, currentPass, newPass, context);
+	}
+
+	public static JsonElement changeUserPassword(Long userid, String currentPass, String newPass) throws LintException, TimeoutException {
+		return changeUserPassword(userid, currentPass, newPass, null);
+	}
+
+	/**
 	 * List all users (actives or not) on application
 	 * 
 	 * @return
@@ -442,6 +458,15 @@ public class LintRobot {
 			Logger.error("PLint - " + e.toString());
 			return false;
 		}
+	}
+
+	/**
+	 * Check contexts use
+	 * @param context
+	 * @return
+	 */
+	protected static String checkContext(String context) {
+		return (context == null || context.length() == 0) ? "" : "context/" + context + "/";
 	}
 
 	/**

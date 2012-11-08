@@ -1,7 +1,7 @@
 package controllers;
 
 
-import helpers.SubdomainChecker;
+import helpers.SubdomainCheck;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.TimeoutException;
@@ -34,7 +34,7 @@ public class SecureLint extends Controller {
 		}
 
 		// Check Authorization
-		if (!LintRobot.checkRequest(request, Long.parseLong(session.get("id")),SubdomainChecker.currentSubdomain(request))) {
+		if (!LintRobot.checkRequest(request, Long.parseLong(session.get("id")),SubdomainCheck.currentSubdomain(request))) {
 			Lintity.invoke("onCheckFailed");
 		}
 	}
@@ -60,7 +60,7 @@ public class SecureLint extends Controller {
 
 		Boolean allowed = (Boolean) Lintity.invoke("authenticate", username, password);
 
-		String context = SubdomainChecker.currentSubdomain(request);
+		String context = SubdomainCheck.currentSubdomain(request);
 		if (allowed) {
 			try {
 				Object login = LintRobot.login(username, password, context);
@@ -93,7 +93,7 @@ public class SecureLint extends Controller {
 	}
 
 	public static void logout() throws Throwable {
-		String context = SubdomainChecker.currentSubdomain(request);
+		String context = SubdomainCheck.currentSubdomain(request);
 		Lintity.invoke("onDisconnect");
 		LintRobot.logout(Long.parseLong(session.get("id")), context);
 		session.clear();

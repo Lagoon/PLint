@@ -1,14 +1,5 @@
-self: play -> plint 0.1beta
+self: play -> plint 0.1.1
 
 require:
     - play
     - play -> less 0.9.1
-    - lagoon -> subdomainchecker 0.2
-
-repositories:
-    
-    - lagoon: 
-        type:       http 
-        artifact:   "http://cloud.github.com/downloads/Lagoon/subdomainchecker/[module]-[revision].zip" 
-        contains: 
-            - lagoon -> *

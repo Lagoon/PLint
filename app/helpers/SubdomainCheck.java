@@ -11,7 +11,7 @@ import play.mvc.Http.Request;
  * @author dpeixoto
  *
  */
-public class SubdomainChecker {
+public class SubdomainCheck {
 
 	public static final String SUBDOMAIN = "_subdomain";
 	public static final String DEFAULT_SUBDDOMAIN_KEY = "default.subdomain";
