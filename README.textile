@@ -69,7 +69,7 @@ In this option the external user id (Lagoon user ID) must be added to the sessio
 *Advanced Controller Protection*
 If you want to control access at your own or for more advanced operations, use the *LintRobot* class methods, in your controllers.
 
-To check the available methods of PLint see the "documentation":PLint/blob/master/documentation/manual/home.textile.
+To check the available methods of PLint see the "documentation":documentation/manual/home.textile.
 
 h2. Example Application
 
