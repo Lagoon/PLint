@@ -466,7 +466,7 @@ public class LintRobot {
 	 * @return
 	 */
 	protected static String checkContext(String context) {
-		return (context == null || context.length() == 0) ? "" : "contextss/" + context + "/";
+		return (context == null || context.length() == 0) ? "" : "contexts/" + context + "/";
 	}
 
 	/**
