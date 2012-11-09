@@ -227,7 +227,7 @@ public class LintUser extends LintRobot {
 	 * @throws TimeoutException
 	 */
 	public static JsonElement getUsers(String context) throws LintException, TimeoutException {
-		String partialUrl = checkContext(context) + "users/";
+		String partialUrl = checkContext(context) + "users";
 		HttpResponse resp = sendRequest(partialUrl, null, LintConf.CONTENT_TYPE, HttpMethod.GET);
 		return resp.getJson();
 	}
@@ -274,7 +274,7 @@ public class LintUser extends LintRobot {
 		JsonObject bodyObj = new JsonObject();
 		bodyObj.addProperty("email", email);
 
-		String partialUrl = checkContext(context) + "/users/password_recovery";
+		String partialUrl = checkContext(context) + "users/password_recovery";
 
 		HttpResponse resp = sendRequest(partialUrl, bodyObj.toString(), LintConf.CONTENT_TYPE, HttpMethod.POST);
 		return resp.getJson();
@@ -296,7 +296,7 @@ public class LintUser extends LintRobot {
 		bodyObj.addProperty("currentpass", currentPass);
 		bodyObj.addProperty("newpass", newPass);
 
-		String partialUrl = checkContext(context) + "/users/" + userid + "/changepass";
+		String partialUrl = checkContext(context) + "users/" + userid + "/changepass";
 
 		HttpResponse resp = sendRequest(partialUrl, bodyObj.toString(), LintConf.CONTENT_TYPE, HttpMethod.POST);
 		return resp.getJson();

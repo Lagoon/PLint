@@ -27,15 +27,7 @@ public class LintProfiles extends LintRobot {
 	 * @throws TimeoutException
 	 */
 	public static JsonElement getProfiles(String context) throws LintException, TimeoutException {
-
-		String partialUrl;
-		if (context == null) {
-			partialUrl = "profiles";
-		} else {
-			partialUrl = "contexts/" + context + "/profiles";
-		}
-
-		// send request
+		String partialUrl = checkContext(context) + "profiles";
 		HttpResponse resp = sendRequest(partialUrl, null, LintConf.CONTENT_TYPE, HttpMethod.GET);
 		return resp.getJson();
 	}

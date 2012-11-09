@@ -29,14 +29,7 @@ public class LintPermissions extends LintRobot {
 	 * @throws TimeoutException
 	 */
 	public static JsonElement getPermissions(Long userid, String context) throws LintException, TimeoutException {
-
-		String partialUrl;
-		if (context == null) {
-			partialUrl = "users/" + userid + "/permissions";
-		} else {
-			partialUrl = "contexts/" + context + "/users/" + userid + "/permissions";
-		}
-
+		String partialUrl = checkContext(context) + "users/" + userid + "/permissions";;
 		HttpResponse resp = sendRequest(partialUrl, null, LintConf.CONTENT_TYPE, HttpMethod.GET);
 		return resp.getJson();
 	}

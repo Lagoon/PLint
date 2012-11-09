@@ -20,6 +20,7 @@ import exceptions.LintException;
  */
 public class LintContext extends LintRobot {
 
+	private static final String CONTEXTS = "contexts";
 	/**
 	 * List current Contexts on application
 	 * 
@@ -28,8 +29,7 @@ public class LintContext extends LintRobot {
 	 * @throws TimeoutException
 	 */
 	public static JsonElement getContexts() throws LintException, TimeoutException {
-		String partialUrl = "contexts";
-		HttpResponse resp = sendRequest(partialUrl, null, LintConf.CONTENT_TYPE, HttpMethod.GET);
+		HttpResponse resp = sendRequest(CONTEXTS, null, LintConf.CONTENT_TYPE, HttpMethod.GET);
 		return resp.getJson();
 	}
 
@@ -46,7 +46,6 @@ public class LintContext extends LintRobot {
 	 * @throws TimeoutException
 	 */
 	public static JsonElement createContext(String name, String activationUrl, String url, String description, String copyContext) throws LintException, TimeoutException {
-		String partialUrl = "contexts";
 
 		// Build Body
 		JsonObject bodyObj = new JsonObject();
@@ -66,7 +65,7 @@ public class LintContext extends LintRobot {
 		}
 
 		// send request
-		HttpResponse resp = sendRequest(partialUrl, bodyObj.toString(), LintConf.CONTENT_TYPE, HttpMethod.POST);
+		HttpResponse resp = sendRequest(CONTEXTS, bodyObj.toString(), LintConf.CONTENT_TYPE, HttpMethod.POST);
 		return resp.getJson();
 	}
 
@@ -84,7 +83,7 @@ public class LintContext extends LintRobot {
 	 * @throws TimeoutException
 	 */
 	public static JsonElement updateContext(String newName, String activationUrl, String url, String description, String oldName) throws LintException, TimeoutException {
-		String partialUrl = "contexts/" + oldName;
+		String partialUrl = CONTEXTS + "/" + oldName;
 
 		// Build Body
 		JsonObject bodyObj = new JsonObject();
@@ -108,7 +107,7 @@ public class LintContext extends LintRobot {
 	 * @throws TimeoutException
 	 */
 	public static JsonElement showContext(String context) throws LintException, TimeoutException {
-		String partialUrl = "contexts/" + context;
+		String partialUrl = CONTEXTS + "/" + context;
 		HttpResponse resp = sendRequest(partialUrl, null, LintConf.CONTENT_TYPE, HttpMethod.GET);
 		return resp.getJson();
 	}
@@ -122,7 +121,7 @@ public class LintContext extends LintRobot {
 	 * @throws TimeoutException
 	 */
 	public static JsonElement deleteContext(String context) throws LintException, TimeoutException {
-		String partialUrl = "contexts/" + context;
+		String partialUrl = CONTEXTS + "/" + context;
 		HttpResponse resp = sendRequest(partialUrl, null, LintConf.CONTENT_TYPE, HttpMethod.DELETE);
 		return resp.getJson();
 	}

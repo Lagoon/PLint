@@ -19,10 +19,19 @@ public class Lint extends Controller {
 	@Before
 	static void checkAccess() throws Throwable {
 		Lintity.invoke("beforeCheckAccess");
-		if (!LintRobot.checkRequest(request, Long.parseLong(session.get("id")), session.get("context"))) {
-			Lintity.invoke("onCheckFailed");
+
+		if(getControllerAnnotation(Unsheltered.class) != null){
+			Logger.debug("Unsheltered Controller :: " + request.action);
+		}else if(getActionAnnotation(Unsheltered.class) != null){
+			Logger.debug("Unsheltered Action :: " + request.action);
+		}else if (getControllerInheritedAnnotation(Unsheltered.class) != null){
+			Logger.debug("Unsheltered Inherited Controller :: " + request.action);
 		}else{
-			Lintity.invoke("onCheckSuccess");
+			if (!LintRobot.checkRequest(request, Long.parseLong(session.get("id")), session.get("context"))) {
+				Lintity.invoke("onCheckFailed");
+			}else{
+				Lintity.invoke("onCheckSuccess");
+			}
 		}
 		Lintity.invoke("afterCheckAccess");
 	}
@@ -42,7 +51,6 @@ public class Lint extends Controller {
 			Logger.debug("Access Denied to " + request.action);
 			forbidden();
 		}
-
 		/**
 		 * This method is called if a check succeed.
 		 */
@@ -64,6 +72,5 @@ public class Lint extends Controller {
 				throw e.getTargetException();
 			}
 		}
-
 	}
 }

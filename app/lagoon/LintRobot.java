@@ -466,7 +466,7 @@ public class LintRobot {
 	 * @return
 	 */
 	protected static String checkContext(String context) {
-		return (context == null || context.length() == 0) ? "" : "context/" + context + "/";
+		return (context == null || context.length() == 0) ? "" : "contextss/" + context + "/";
 	}
 
 	/**
@@ -483,7 +483,7 @@ public class LintRobot {
 		request.headers.put("accept", "application/" + contentType);
 		request.authenticate(LintConf.LOGIN, LintConf.PASSWORD);
 		request.body(body);
-		Logger.debug(partialUrl);
+		Logger.debug("Lint - URL :: " + partialUrl);
 		HttpResponse response = null;
 
 		if (method.equals(HttpMethod.GET)) {
@@ -498,7 +498,7 @@ public class LintRobot {
 			response = request.get();
 		}
 
-		Logger.debug("Lint - " + request.url);
+		Logger.debug("Lint Request :: " + request.url);
 		return checkResponseCode(response);
 	}
 

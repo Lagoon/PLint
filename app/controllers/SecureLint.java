@@ -13,6 +13,7 @@ import play.libs.Crypto;
 import play.mvc.Before;
 import play.mvc.Controller;
 import play.mvc.Http;
+import play.mvc.Util;
 import play.utils.Java;
 import exceptions.LintException;
 
@@ -27,16 +28,28 @@ public class SecureLint extends Controller {
 	@Before(unless = { "login", "authenticate", "logout", "register", "registerUser" })
 	static void checkAccess() throws Throwable {
 
-		// Check Authentication
-		if (!session.contains("username") || !session.contains("id")) {
-			flash.put("url", "GET".equals(request.method) ? request.url : "/");
-			login();
-		}
+		Lintity.invoke("beforeCheckAccess");
 
-		// Check Authorization
-		if (!LintRobot.checkRequest(request, Long.parseLong(session.get("id")),SubdomainCheck.currentSubdomain(request))) {
-			Lintity.invoke("onCheckFailed");
+		if(getControllerAnnotation(Unsheltered.class) != null){
+			Logger.debug("Unsheltered Controller :: " + request.action);
+		}else if(getActionAnnotation(Unsheltered.class) != null){
+			Logger.debug("Unsheltered Action :: " + request.action);
+		}else if (getControllerInheritedAnnotation(Unsheltered.class) != null){
+			Logger.debug("Unsheltered Inherited Controller :: " + request.action);
+		}else{
+
+			// Check Authentication
+			if (!session.contains("username") || !session.contains("id")) {
+				flash.put("url", "GET".equals(request.method) ? request.url : "/");
+				login();
+			}
+
+			// Check Authorization
+			if (!LintRobot.checkRequest(request, Long.parseLong(session.get("id")),SubdomainCheck.currentSubdomain(request))) {
+				Lintity.invoke("onCheckFailed");
+			}
 		}
+		Lintity.invoke("afterCheckAccess");
 	}
 
 	// ~~~ Login
@@ -104,8 +117,8 @@ public class SecureLint extends Controller {
 	}
 
 	// ~~~ Utils
-
-	static void redirectToOriginalURL() throws Throwable {
+	@Util
+	private static void redirectToOriginalURL() throws Throwable {
 		Lintity.invoke("onAuthenticated");
 		String url = flash.get("url");
 		if (url == null) {

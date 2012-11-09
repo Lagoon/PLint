@@ -27,8 +27,6 @@ public class LintApp extends LintRobot {
 	 * @throws TimeoutException
 	 */
 	public static JsonElement showApp() throws LintException, TimeoutException {
-
-		// send request
 		HttpResponse resp = sendRequest("", null, LintConf.CONTENT_TYPE, HttpMethod.GET);
 		return resp.getJson();
 	}
