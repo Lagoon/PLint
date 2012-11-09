@@ -176,6 +176,12 @@ public class SecureLint extends Controller {
 		}
 
 		/**
+		 * This method is called before check request access is verified.
+		 */
+		static void beforeCheckAccess() {
+		}
+
+		/**
 		 * Indicate if a user is currently connected
 		 * 
 		 * @return true if the user is connected
@@ -209,7 +215,14 @@ public class SecureLint extends Controller {
 		 * This method is called if a check does not succeed. By default it shows the not allowed page (the controller forbidden method).
 		 */
 		static void onCheckFailed() {
+			Logger.debug("Access Denied to " + request.action);
 			forbidden();
+		}
+
+		/**
+		 * This method is called after check request access is verified.
+		 */
+		static void afterCheckAccess() {
 		}
 
 		private static Object invoke(String m, Object... args) throws Throwable {
