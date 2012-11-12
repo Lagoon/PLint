@@ -27,10 +27,14 @@ public class Lint extends Controller {
 		}else if (getControllerInheritedAnnotation(Unsheltered.class) != null){
 			Logger.debug("Unsheltered Inherited Controller :: " + request.action);
 		}else{
-			if (!LintRobot.checkRequest(request, Long.parseLong(session.get("id")), session.get("context"))) {
-				Lintity.invoke("onCheckFailed");
+			if(session.get("id") != null){
+				if (!LintRobot.checkRequest(request, Long.parseLong(session.get("id")), session.get("context"))) {
+					Lintity.invoke("onCheckFailed");
+				}else{
+					Lintity.invoke("onCheckSuccess");
+				}
 			}else{
-				Lintity.invoke("onCheckSuccess");
+				Logger.debug("No user id has found in session! PLint can not check request :: " + request.action);
 			}
 		}
 		Lintity.invoke("afterCheckAccess");
