@@ -28,8 +28,7 @@ public class Lint extends Controller {
 			Logger.debug("Unsheltered Inherited Controller :: " + request.action);
 		}else{
 			if(session.get("id") == null){
-				Logger.debug("No user id has found in session! PLint can not check request :: " + request.action);
-				Lintity.invoke("onCheckFailed");
+				Lintity.invoke("uncheckedAccess");
 			}else{
 				if (!LintRobot.checkRequest(request, Long.parseLong(session.get("id")), session.get("context"))) {
 					Lintity.invoke("onCheckFailed");
@@ -43,6 +42,13 @@ public class Lint extends Controller {
 
 	public static class Lintity extends Controller {
 
+		/**
+		 * This method is called when no User identification can be found.
+		 */
+		static void uncheckedAccess() {
+			Logger.debug("No user id has found in session! PLint can not check request :: " + request.action);
+			forbidden();
+		}
 		/**
 		 * This method is called before check request access is verified.
 		 */
