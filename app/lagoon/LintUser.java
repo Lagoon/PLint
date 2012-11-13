@@ -140,16 +140,15 @@ public class LintUser extends LintRobot {
 		bodyObj.addProperty("name", name);
 		bodyObj.addProperty("ghost", ghost);
 		if (profiles != null) {
-			JsonObject profileObj = new JsonObject();
 			JsonArray arr = new JsonArray();
 			for (String profile : profiles) {
+				JsonObject profileObj = new JsonObject();
 				profileObj.addProperty("name", profile);
 				arr.add(profileObj);
 			}
 			bodyObj.add("profiles", arr);
 		}
 		Logger.debug(bodyObj.toString());
-
 		String partialUrl = checkContext(context) + "users";
 		HttpResponse resp = sendRequest(partialUrl, bodyObj.toString(), LintConf.CONTENT_TYPE, HttpMethod.POST);
 
@@ -282,6 +281,7 @@ public class LintUser extends LintRobot {
 
 	/**
 	 * Change User password
+	 * 
 	 * @param userid
 	 * @param currentPass
 	 * @param newPass
