@@ -25,6 +25,7 @@ The following list enumerates the available methods, specifying input parameters
 ** "Login":login.textile: Login an user
 ** "Logout":logout.textile: Logout an user
 ** "Create User":createUser.textile: Creates a new user
+** "Delete User":deleteUser.textile: Delete user
 ** "Register User":registerUser.textile: Registers an users password
 ** "Activate User":activateUser.textile: Enables a disabled user
 ** "Deactivate User":deactivateUser.textile: Disables an user

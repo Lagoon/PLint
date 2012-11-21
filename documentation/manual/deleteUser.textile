@@ -1,0 +1,18 @@
+h2. <a>deleteUser</a>
+
+Method to delete a user
+Returns a JsonElement with success/error message
+
+*Input* 
+
+bc. context: name of the context
+user_id: User ID
+
+*Output*
+
+bc. {
+    "success": true
+}
+
+
+"Back":home.textile
