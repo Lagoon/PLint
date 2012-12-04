@@ -11,15 +11,17 @@ After downloading the module, unzip it and put it in the same folder as your app
 
 <pre>
 require:
-    - plint -> plint
+    - PLint -> PLint
 
 repositories:
     - MyModules:
        type:    local
        artifact: "${application.path}/../../../[module]"
        contains:
-            - plint
+            - PLint
 </pre>
+
+Note: For this dependency to work the module has to be in a folder named PLint.
 
 And then execute: 
   @$ play deps@
@@ -32,7 +34,7 @@ After installing PLint, in order to use it in your Play! Application, the follow
 <pre>
 lint.protocol=https // Communication Protocol with LS
 lint.port=9091 // Communication Port with LS
-lint.baseUrl=subdomain.lagoonsecurity.dyndns.org // Provided LS Base access URL
+lint.baseUrl=demo.lagoonsecurity.pt // Provided LS Base access URL
 lint.login=loginLagoon // Provided LS Login
 lint.password=passwordLagoon // Provided LS password
 </pre>
