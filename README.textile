@@ -39,7 +39,7 @@ lint.login=loginLagoon // Provided LS Login
 lint.password=passwordLagoon // Provided LS password
 </pre>
 
-The baseUrl, login and password will be provided after registration. To check your credentials please go to "Lagoon(r) Security":https://demo.lagoonsecurity.dyndns.org:9091
+The baseUrl, login and password will be provided after registration. To check your credentials please go to "Lagoon(r) Security":https://demo.lagoonsecurity.pt
 
 h2. How to use
 
