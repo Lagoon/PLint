@@ -6,6 +6,8 @@ require:
     - PLint -> PLint
     - lagoon -> subdomainchecker 0.2
     - play -> less 0.9.1
+    - play -> cobertura 2.4:
+        id: test
     - joda-time -> joda-time-hibernate 1.3
 
     
