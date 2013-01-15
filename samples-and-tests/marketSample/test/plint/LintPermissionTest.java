@@ -18,7 +18,7 @@ public class LintPermissionTest extends UnitTest {
 	@Before
 	public void setup() throws LintException, TimeoutException {
 		//create subdomain for test
-		LintRobot.createContext("test", null, null, "test context", null);
+		LintRobot.createContext("test", "http://xpto.lvh.me:9000/activations" , null, "test context", null);
 	}
 
 	@After
