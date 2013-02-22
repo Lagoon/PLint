@@ -12,18 +12,18 @@ import exceptions.LintException;
 @With(SecureLint.class)
 public class Application extends Controller {
 
-	public static void index() {
+	public static void index() throws LintException, TimeoutException{
 		render();
 	}
 
 	@Catch(value = LintException.class, priority = 1)
-	public static void lintException(Throwable throwable) {
+	public static void lintException(Throwable throwable) throws LintException, TimeoutException {
 		doFlashError(throwable.getMessage());
 		index();
 	}
 
 	@Catch(value = TimeoutException.class, priority = 1)
-	public static void timeoutException(Throwable throwable) {
+	public static void timeoutException(Throwable throwable) throws LintException, TimeoutException {
 		doFlashError("Connection timed out");
 		index();
 	}

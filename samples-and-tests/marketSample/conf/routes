@@ -39,12 +39,12 @@ GET		/users/{<[0-9]+>id}/permissions			Permissions.index
 
 #Contexts
 GET		/contexts								Contexts.index
-GET		/contexts/{<[0-9]+>id}					Contexts.show
+GET		/contexts/{name}					 	Contexts.show
 GET		/contexts/create						Contexts.create
 POST	/contexts								Contexts.save
-GET		/contexts/{<[0-9]+>id}/edit				Contexts.edit
+GET		/contexts/{name}/edit					Contexts.edit
 PUT		/contexts								Contexts.update
-GET		/contexts/{<[0-9]+>id}/delete			Contexts.delete
+GET		/contexts/{name}/delete					Contexts.delete
 
 #Products
 GET		/products								Products.index

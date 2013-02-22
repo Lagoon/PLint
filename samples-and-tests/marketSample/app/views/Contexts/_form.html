@@ -10,13 +10,25 @@
       <input type="text" name="entity.description" value="${entity?.description}"/>
   </div>
   <span class="error">${errors.forKey('entity.description')}</span>
+  
+  <div class="label">Activation Url</div>
+  <div class="field">
+      <input type="text" name="entity.activationUrl" value="${entity?.activationUrl}"/>
+  </div>
+  <span class="error">${errors.forKey('entity.activationUrl')}</span>
+  
+  <div class="label">Url</div>
+  <div class="field">
+      <input type="text" name="entity.url" value="${entity?.url}"/>
+  </div>
+  <span class="error">${errors.forKey('entity.url')}</span>
+  
 
 
   <div class="field">
-      <input type="hidden" name="entity.contextID" value="${entity?.contextID}"/>
-        <input type="hidden" name="old" value="${old}"/>
+      <input type="hidden" name="entity.name" value="${entity?.name}"/>
+      <input type="hidden" name="old" value="${old}"/>
   </div>
 
  
-  <span class="error">${errors.forKey('entity.contextID')}</span>
-
+  <span class="error">${errors.forKey('entity.id')}</span>

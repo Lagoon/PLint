@@ -1,18 +1,15 @@
 package controllers;
 
-import lagoon.LintRobot;
-
-import com.google.gson.JsonElement;
-
-
+import lagoon.PlintRobot;
+import ls.LSInstance;
 
 public class Apps extends Application {
 
 	public static void show() throws Exception {
-		JsonElement resp = LintRobot.showApp();
+		LSInstance resp = PlintRobot.getInstance().showApp();
 
-		String name = resp.getAsJsonObject().get("application").getAsJsonObject().get("name").getAsString();
-		String description = resp.getAsJsonObject().get("application").getAsJsonObject().get("description").getAsString();
+		String name = resp.application.name;
+		String description = resp.application.description;
 		render(name, description);
 	}
 

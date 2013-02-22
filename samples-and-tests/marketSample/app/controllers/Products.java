@@ -6,7 +6,6 @@ import models.Condition;
 import models.Product;
 import models.Purchase;
 import models.User;
-import models.UserLagoon;
 import play.data.validation.Valid;
 import play.i18n.Messages;
 
@@ -29,20 +28,19 @@ public class Products extends Application {
 		Product entity = Product.findById(id);
 		render(entity);
 	}
-	
+
 	public static void buy(java.lang.Long id) {
 		Product p = Product.findById(id);
 		Purchase purchase = new Purchase();
-		
-		UserLagoon userLagoon = UserLagoon.findByExternalID(Long.parseLong(session.get("id")));
-		User buyer = User.findByUserLagoon(userLagoon);
-		
+
+		User buyer = User.findById(Long.parseLong(session.get("id")));
+
 		purchase.product = p;
 		purchase.price = p.price;
 		purchase.buyer = buyer;
 		purchase.save();
-		
-		//Mark as sold 
+
+		//Mark as sold
 		Condition sold = Condition.findByName("sold");
 		if(sold == null) {
 			sold = new Condition("sold");
@@ -52,7 +50,7 @@ public class Products extends Application {
 		doFlashSuccess("Product purchased");
 		index();
 	}
-	
+
 
 	public static void delete(java.lang.Long id) {
 		Product entity = Product.findById(id);
@@ -65,10 +63,9 @@ public class Products extends Application {
 			flash.error(Messages.get("scaffold.validation"));
 			render("@create", entity);
 		}
-		
-		UserLagoon userLagoon = UserLagoon.findByExternalID(Long.parseLong(session.get("id")));
-		User owner = User.findByUserLagoon(userLagoon);
-		
+
+		User owner = User.findById(Long.parseLong(session.get("id")));
+
 		entity.owner = owner;
 		entity.save();
 		flash.success(Messages.get("scaffold.created", "Product"));

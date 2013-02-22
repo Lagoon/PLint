@@ -17,6 +17,8 @@ public class LintConf {
 	public static final String PORT = Play.configuration.getProperty("lint.port", PROTOCOL.equals("https") ? "443" : "80");
 	public static final String LOGIN = Play.configuration.getProperty("lint.login", "guest").trim();
 	public static final String PASSWORD = Play.configuration.getProperty("lint.password", "guest").trim();
+	public static final String EXPIRATION = Play.configuration.getProperty("lint.cache.expiration", "1h");
+	public static final String LOG_PREFIX = "PLint :: ";
 
 	/**
 	 * This is used as default content type related to the web: request, response

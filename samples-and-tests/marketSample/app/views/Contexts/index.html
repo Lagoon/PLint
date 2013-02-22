@@ -7,18 +7,26 @@
 			<th><!-- actions --></th>
 				<th>Name</th>
 				<th>Description</th>
+				<th>Default</th>
+				<th>Enable</th>
+				<th>Activation URL</th>
+				<th>URL</th>
 		</tr>
 	</thead>
 	<tbody>
 	#{list items:entities, as:'entity'}
 		<tr>
 			<td>
-				<a href="@{Contexts.show(entity.contextID)}">Show</a>&nbsp;	
-				<a href="@{Contexts.edit(entity.contextID)}">Edit</a>&nbsp;	
-				<a href="@{Contexts.delete(entity.contextID)}">Delete</a>&nbsp;	
+				<a href="@{Contexts.show(entity.name)}">Show</a>&nbsp;	
+				<a href="@{Contexts.edit(entity.name)}">Edit</a>&nbsp;	
+				<a href="@{Contexts.delete(entity.name)}">Delete</a>&nbsp;	
 			</td>
 			<td>${entity.name}</td>		
-			<td>${entity.description}</td>			
+			<td>${entity.description}</td>
+			<td>${entity.defaultContext}</td>	
+			<td>${entity.enable}</td>	
+			<td>${entity.activationUrl}</td>
+			<td>${entity.url}</td>		
 		</tr>
 	#{/list}
 	</tbody>

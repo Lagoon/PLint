@@ -16,3 +16,5 @@ eclipse
 server.pid
 modules
 commands.pyc
+lib
+dist

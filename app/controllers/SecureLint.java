@@ -6,7 +6,8 @@ import helpers.SubdomainCheck;
 import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.TimeoutException;
 
-import lagoon.LintRobot;
+import lagoon.PlintRobot;
+import ls.LSUser;
 import play.Logger;
 import play.data.validation.Required;
 import play.libs.Crypto;
@@ -45,7 +46,7 @@ public class SecureLint extends Controller {
 			}
 
 			// Check Authorization
-			if (!LintRobot.checkRequest(request, Long.parseLong(session.get("id")),SubdomainCheck.currentSubdomain(request))) {
+			if (!PlintRobot.getInstance().checkRequest(request, Long.parseLong(session.get("id")), SubdomainCheck.currentSubdomain(request))) {
 				Lintity.invoke("onCheckFailed");
 			}
 		}
@@ -76,9 +77,9 @@ public class SecureLint extends Controller {
 		String context = SubdomainCheck.currentSubdomain(request);
 		if (allowed) {
 			try {
-				Object login = LintRobot.login(username, password, context);
+				LSUser login = PlintRobot.getInstance().login(username, password, context);
 				if (login != null) {
-					session.put("id", login);
+					session.put("id", login.id);
 				}
 			} catch (LintException e) {
 				Logger.error("Lint - " + e.getMessage());
@@ -108,7 +109,8 @@ public class SecureLint extends Controller {
 	public static void logout() throws Throwable {
 		String context = SubdomainCheck.currentSubdomain(request);
 		Lintity.invoke("onDisconnect");
-		LintRobot.logout(Long.parseLong(session.get("id")), context);
+		PlintRobot.getInstance().logout(Long.parseLong(session.get("id")), context);
+		//		LintRobot.logout(Long.parseLong(session.get("id")), context);
 		session.clear();
 		response.removeCookie("rememberme");
 		Lintity.invoke("onDisconnected");

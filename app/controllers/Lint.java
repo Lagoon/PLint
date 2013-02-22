@@ -2,7 +2,7 @@ package controllers;
 
 import java.lang.reflect.InvocationTargetException;
 
-import lagoon.LintRobot;
+import lagoon.PlintRobot;
 import play.Logger;
 import play.mvc.Before;
 import play.mvc.Controller;
@@ -30,7 +30,7 @@ public class Lint extends Controller {
 			if(session.get("id") == null){
 				Lintity.invoke("uncheckedAccess");
 			}else{
-				if (!LintRobot.checkRequest(request, Long.parseLong(session.get("id")), session.get("context"))) {
+				if (!PlintRobot.getInstance().checkRequest(request, Long.parseLong(session.get("id")), session.get("context"))) {
 					Lintity.invoke("onCheckFailed");
 				}else{
 					Lintity.invoke("onCheckSuccess");

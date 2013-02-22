@@ -1,18 +1,14 @@
 package controllers;
 
 import helpers.subdomainchecker.SubdomainChecker;
-import lagoon.LintRobot;
-import models.Context;
-import models.Profile;
-import models.User;
-import models.UserLagoon;
-import play.data.validation.Required;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-
-import exceptions.LintException;
 import java.util.concurrent.TimeoutException;
+
+import lagoon.PlintRobot;
+import ls.LSUser;
+import models.User;
+import play.data.validation.Required;
+import exceptions.LintException;
 
 public class Lintity extends SecureLint.Lintity {
 
@@ -20,35 +16,21 @@ public class Lintity extends SecureLint.Lintity {
 
 		String context = SubdomainChecker.currentSubdomain(request);
 
-		JsonElement resp = null;
+		LSUser resp = null;
 
 		//Send user create request
 		try {
-			resp = LintRobot.createUser(username, email, name, context);
+			resp = PlintRobot.getInstance().createUser(username, email, name, context);
 		} catch(Exception ex) {
 
 			Application.doFlashError(ex.getMessage());
 			renderTemplate("SecureLint/Lintity/register.html");
 		}
 
-		UserLagoon userLagoon = UserLagoon.findByExternalID(resp.getAsJsonObject().get("id").getAsLong());
 
 		//save user profiles
-		JsonElement profilesJson = resp.getAsJsonObject().get("profiles").getAsJsonArray();
-		Gson gson = new Gson();
-		Profile[] profiles  = gson.fromJson(profilesJson, Profile[].class);
-
-		User user = new User(userLagoon, currentContext());
-
-		for(Profile p : profiles) {
-
-			Profile userProfile = Profile.findByExternalId(p.id);
-			if(userProfile == null) {
-				userProfile = p.save();
-			}
-			user.profiles.add(userProfile);
-		}
-
+		User user = new User();
+		user.externalID = resp.id;
 		user.save();
 		flash.success("User successfully created. View your email inbox.");
 		renderTemplate("SecureLint/login.html");
@@ -61,15 +43,15 @@ public class Lintity extends SecureLint.Lintity {
 		}
 
 		String context = SubdomainChecker.currentSubdomain(request);
-		LintRobot.registerUser(password, token, context);
+		PlintRobot.getInstance().registerUser(password, token, context);
 		flash.success("User successfully registered.");
 		renderTemplate("SecureLint/login.html");
 	}
-	
+
 	public static void resendPassword(@Required String email) {
 		String context = SubdomainChecker.currentSubdomain(request);
 		try{
-			LintRobot.passwordRecovery(email, context);
+			PlintRobot.getInstance().passwordRecovery(email, context);
 			flash.success("Password successfully resended.");
 		}catch (LintException | TimeoutException ex){
 			Application.doFlashError(ex.getMessage());
@@ -78,8 +60,8 @@ public class Lintity extends SecureLint.Lintity {
 		renderTemplate("SecureLint/login.html");
 	}
 
-	public static Context currentContext() {
-		return Context.findByName(SubdomainChecker.currentSubdomain(request));
+	public static String currentContext() {
+		return SubdomainChecker.currentSubdomain(request);
 	}
 
 }
