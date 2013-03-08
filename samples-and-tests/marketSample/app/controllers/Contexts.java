@@ -17,16 +17,16 @@ public class Contexts extends Application {
 	}
 
 	public static void create(LSContext entity) {
-		renderTemplate("Contexts/create", entity);
+		render(entity);
 	}
 
 	public static void show(String name) throws LintException, TimeoutException {
-		LSContext entity = PlintRobot.getInstance().showContext(name);
+		LSContext entity = PlintRobot.getInstance().getContext(name);
 		render(entity);
 	}
 
 	public static void edit(String name) throws LintException, TimeoutException {
-		LSContext entity = PlintRobot.getInstance().showContext(name);
+		LSContext entity = PlintRobot.getInstance().getContext(name);
 		String old = entity.name;
 		render(entity, old);
 	}

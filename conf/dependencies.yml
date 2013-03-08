@@ -1,4 +1,4 @@
-self: play -> plint 0.2.3-dev
+self: play -> plint 0.2.4-dev
 
 require:
     - play

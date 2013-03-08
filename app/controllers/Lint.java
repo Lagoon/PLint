@@ -27,10 +27,12 @@ public class Lint extends Controller {
 		}else if (getControllerInheritedAnnotation(Unsheltered.class) != null){
 			Logger.debug("Unsheltered Inherited Controller :: " + request.action);
 		}else{
-			if(session.get("id") == null){
+			Long userID = (Long) Lintity.invoke("userId");
+			if(userID == null){
 				Lintity.invoke("uncheckedAccess");
 			}else{
-				if (!PlintRobot.getInstance().checkRequest(request, Long.parseLong(session.get("id")), session.get("context"))) {
+				String contextName = (String) Lintity.invoke("contextName");
+				if (!PlintRobot.getInstance().checkRequest(request, userID, contextName)) {
 					Lintity.invoke("onCheckFailed");
 				}else{
 					Lintity.invoke("onCheckSuccess");
@@ -73,6 +75,20 @@ public class Lint extends Controller {
 		 * This method is called after check request access is verified.
 		 */
 		static void afterCheckAccess() {
+		}
+
+		/**
+		 * computes user id, if any
+		 */
+		static Long userId() {
+			return 0l;
+		}
+
+		/**
+		 * computes context name, if any
+		 */
+		static String contextName() {
+			return null;
 		}
 
 		private static Object invoke(String m, Object... args) throws Throwable {

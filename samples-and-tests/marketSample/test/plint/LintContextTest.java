@@ -1,40 +1,40 @@
 package plint;
 
+import java.util.ArrayList;
 import java.util.concurrent.TimeoutException;
 
-import lagoon.LintRobot;
+import lagoon.PlintRobot;
+import ls.LSContext;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import play.test.UnitTest;
-
-import com.google.gson.JsonElement;
-
 import exceptions.LintException;
 
 public class LintContextTest extends UnitTest {
 
+	private final String CONTEXT_NAME = "test";
+
 	@Before
 	public void setup() throws LintException, TimeoutException {
 		//create subdomain for test
-		LintRobot.createContext("test", "http://www.activationUrl.pt","http://www.url.pt", "test context", null);
+		PlintRobot.getInstance().createContext(CONTEXT_NAME, "http://www.activationUrl.pt", "http://www.url.pt", "test context", null);
 	}
 
 	@After
-	public void clean() throws LintException, TimeoutException{
+	public void clean() throws LintException, TimeoutException {
 		// Delete context created for testing
-		LintRobot.deleteContext("test");
-
+		PlintRobot.getInstance().deleteContext(CONTEXT_NAME);
 	}
+
 
 	@Test
 	public void testListContexts(){
 		try {
-			JsonElement resp = LintRobot.getContexts();
-			assertTrue(resp.isJsonArray());
-
+			ArrayList<LSContext> contexts = PlintRobot.getInstance().getContexts();
+			assertNotNull(contexts);
 		} catch (LintException e) {
 			assertFalse(e.getMessage(),true);
 		} catch (TimeoutException e) {
@@ -46,10 +46,10 @@ public class LintContextTest extends UnitTest {
 	@Test
 	public void testCreateContext(){
 		try {
-			JsonElement resp = LintRobot.createContext("xtest2","http://www.activationUrl.pt", "http://www.url.pt", "xtest2 Description", null);
-			assertTrue(resp.isJsonObject());
-			LintRobot.deleteContext("xtest2");
-
+			LSContext createContext = PlintRobot.getInstance().createContext("xtest2","http://www.activationUrl.pt", "http://www.url.pt", "xtest2 Description", null);
+			assertNotNull(createContext);
+			assertEquals("xtest2", createContext.name);
+			PlintRobot.getInstance().deleteContext("xtest2");
 		} catch (LintException e) {
 			assertFalse(e.getMessage(),true);
 		} catch (TimeoutException e) {
@@ -60,10 +60,9 @@ public class LintContextTest extends UnitTest {
 	@Test
 	public void testCreateContextNoActivationUrl(){
 		try {
-			JsonElement resp = LintRobot.createContext("xtest2", null, null, "xtest2 Description", null);
-			assertTrue(resp.isJsonObject());
-			LintRobot.deleteContext("xtest2");
-
+			LSContext createContext = PlintRobot.getInstance().createContext("xtest2", null, null, "xtest2 Description", null);
+			assertNotNull(createContext);
+			PlintRobot.getInstance().deleteContext("xtest2");
 		} catch (LintException e) {
 			assertFalse(e.getMessage(),true);
 		} catch (TimeoutException e) {
@@ -74,10 +73,9 @@ public class LintContextTest extends UnitTest {
 	@Test
 	public void testCreateContextNoDescription(){
 		try {
-			JsonElement resp = LintRobot.createContext("xtest2",null, null,  null, null);
-			assertTrue(resp.isJsonObject());
-			LintRobot.deleteContext("xtest2");
-
+			LSContext createContext = PlintRobot.getInstance().createContext("xtest2", null, null, null, null);
+			assertNotNull(createContext);
+			PlintRobot.getInstance().deleteContext("xtest2");
 		} catch (LintException e) {
 			assertFalse(e.getMessage(),true);
 		} catch (TimeoutException e) {
@@ -88,8 +86,9 @@ public class LintContextTest extends UnitTest {
 	@Test
 	public void testUpdateContext(){
 		try {
-			JsonElement resp = LintRobot.updateContext("test", "http://www.updatetActivationUrl", "http://www.updatedUrl.com", "NewDomainDescription", "test");
-			assertTrue(resp.getAsJsonObject().get("description").getAsString().equals("NewDomainDescription"));
+			LSContext updateContext = PlintRobot.getInstance().updateContext("test", "http://www.updatetActivationUrl", "http://www.updatedUrl.com", "NewDomainDescription", CONTEXT_NAME);
+			assertNotNull(updateContext);
+			assertEquals("NewDomainDescription", updateContext.description);
 		} catch (LintException e) {
 			assertFalse(e.getMessage(),true);
 		} catch (TimeoutException e) {
@@ -100,8 +99,9 @@ public class LintContextTest extends UnitTest {
 	@Test
 	public void testUpdateContextNoDescription(){
 		try {
-			JsonElement resp = LintRobot.updateContext("test", "http://www.updatetActivationUrl", "http://www.updatedUrl.com", null, "test");
-			assertTrue(resp.getAsJsonObject().get("name").getAsString().equals("test"));
+			LSContext updateContext = PlintRobot.getInstance().updateContext("test", "http://www.updatetActivationUrl", "http://www.updatedUrl.com", null, CONTEXT_NAME);
+			assertNotNull(updateContext);
+			assertEquals("test", updateContext.name);
 		} catch (LintException e) {
 			assertFalse(e.getMessage(),true);
 		} catch (TimeoutException e) {
@@ -112,8 +112,9 @@ public class LintContextTest extends UnitTest {
 	@Test
 	public void testUpdateUnexistentContext(){
 		try {
-			JsonElement resp = LintRobot.updateContext("xtest2", null, null,"NewDomainDescription", "xtest3");
-			assertFalse(resp.isJsonObject());
+			LSContext updateContext = PlintRobot.getInstance().updateContext("xtest2", null, null, "NewDomainDescription", "xtest3");
+			assertNotNull(updateContext);
+			assertEquals("xtest2", updateContext.name);
 		} catch (LintException e) {
 			assertTrue(e.getMessage(),true);
 		} catch (TimeoutException e) {
@@ -124,8 +125,9 @@ public class LintContextTest extends UnitTest {
 	@Test
 	public void testGetContextInfo(){
 		try {
-			JsonElement resp = LintRobot.showContext("test");
-			assertTrue(resp.getAsJsonObject().get("name").getAsString().equals("test"));
+			LSContext context = PlintRobot.getInstance().getContext(CONTEXT_NAME);
+			assertNotNull(context);
+			assertEquals("test", context.name);
 		} catch (LintException e) {
 			assertFalse(e.getMessage(),true);
 		} catch (TimeoutException e) {
@@ -136,33 +138,19 @@ public class LintContextTest extends UnitTest {
 	@Test
 	public void testGetUnexistentContextInfo(){
 		try {
-			JsonElement resp = LintRobot.showContext("xtest2");
-			assertFalse(resp.isJsonObject());
+			LSContext context = PlintRobot.getInstance().getContext("xpto");
+			assertNull(context);
 		} catch (LintException e) {
 			assertTrue(e.getMessage(),true);
 		} catch (TimeoutException e) {
 			assertTrue(e.getMessage(),true);
-		}
-	}
-
-	@Test
-	public void testDeleteContext(){
-		try {
-			LintRobot.createContext("xtest2", null, null,"test2 context", null);
-			JsonElement resp = LintRobot.deleteContext("xtest2");
-			assertTrue(resp.getAsJsonObject().get("success").getAsString().equals("true"));
-		} catch (LintException e) {
-			assertFalse(e.getMessage(),true);
-		} catch (TimeoutException e) {
-			assertFalse(e.getMessage(),true);
 		}
 	}
 
 	@Test
 	public void testDeleteUnexistentContext(){
 		try {
-			JsonElement resp = LintRobot.deleteContext("xtest2");
-			assertFalse(resp.isJsonObject());
+			assertFalse(PlintRobot.getInstance().deleteContext("xpto"));
 		} catch (LintException e) {
 			assertTrue(e.getMessage(),true);
 		} catch (TimeoutException e) {

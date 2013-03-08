@@ -59,9 +59,4 @@ public class Lintity extends SecureLint.Lintity {
 		}
 		renderTemplate("SecureLint/login.html");
 	}
-
-	public static String currentContext() {
-		return SubdomainChecker.currentSubdomain(request);
-	}
-
 }

@@ -1,43 +1,46 @@
 package plint;
 
+import java.util.ArrayList;
 import java.util.concurrent.TimeoutException;
 
-import lagoon.LintRobot;
+import lagoon.PlintRobot;
+import ls.LSUser;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import play.test.UnitTest;
-
-import com.google.gson.JsonElement;
-
 import exceptions.LintException;
 
 public class LintUserTest extends UnitTest {
 
-	private final String context = "test";
+	private final String CONTEXT_NAME = "test";
+
 
 	@Before
 	public void setup() throws LintException, TimeoutException {
-		// create subdomain for context
-		LintRobot.createContext(context, "http://xpto.lvh.me:9000/activations", null, "context context", null);
+		//create subdomain for test
+		PlintRobot.getInstance().createContext(CONTEXT_NAME, "http://xpto.lvh.me:9000/activations", null, "context context", null);
 	}
 
 	@After
 	public void clean() throws LintException, TimeoutException {
 		// Delete context created for testing
-		LintRobot.deleteContext(context);
+		PlintRobot.getInstance().deleteContext(CONTEXT_NAME);
 	}
+
 
 	@Test
 	public void testLogin() {
 		try {
-			JsonElement resp = LintRobot.createUser("user1", "xisgest@xlm.pt", "user1", context);
-			String token = resp.getAsJsonObject().get("token").getAsString();
-			LintRobot.registerUser("ola123", token, context);
-			LintRobot.login("user1", "ola123", context);
-			assertTrue(resp.getAsJsonObject().get("login").getAsString().equals("user1"));
+			LSUser createUser = PlintRobot.getInstance().createUser("user1", "xisgest@xlm.pt", "user1", CONTEXT_NAME);
+			assertNotNull(createUser);
+			assertNotNull(createUser.token);
+			PlintRobot.getInstance().registerUser("ola123", createUser.token, CONTEXT_NAME);
+			LSUser login = PlintRobot.getInstance().login("user1", "ola123", CONTEXT_NAME);
+			assertNotNull(login);
+			assertEquals("user1", login.name);
 		} catch (LintException e) {
 			assertFalse(e.getMessage(), true);
 		} catch (TimeoutException e) {
@@ -48,8 +51,8 @@ public class LintUserTest extends UnitTest {
 	@Test
 	public void testLoginWrongUserAndPass() {
 		try {
-			Object resp = LintRobot.login("user", "password", context);
-			assertFalse(resp.toString().equals("true"));
+			LSUser login = PlintRobot.getInstance().login("user", "password", CONTEXT_NAME);
+			assertNull(login);
 		} catch (LintException e) {
 			assertTrue(e.getMessage(), true);
 		} catch (TimeoutException e) {
@@ -60,12 +63,15 @@ public class LintUserTest extends UnitTest {
 	@Test
 	public void testLogout() {
 		try {
-			JsonElement resp = LintRobot.createUser("user1", "xisgest@xlm.pt", "user1", context);
-			String token = resp.getAsJsonObject().get("token").getAsString();
-			JsonElement resp2 = LintRobot.registerUser("ola123", token, context);
-			Long id = resp2.getAsJsonObject().get("id").getAsLong();
-			boolean respLogout = LintRobot.logout(id, context);
-			assertTrue(respLogout);
+			LSUser createUser = PlintRobot.getInstance().createUser("user1", "xisgest@xlm.pt", "user1", CONTEXT_NAME);
+			assertNotNull(createUser);
+			assertNotNull(createUser.token);
+
+			PlintRobot.getInstance().registerUser("ola123", createUser.token, CONTEXT_NAME);
+			LSUser login = PlintRobot.getInstance().login("user1", "ola123", CONTEXT_NAME);
+			assertNotNull(login);
+			assertEquals("user1", login.name);
+			assertTrue(PlintRobot.getInstance().logout(login.id, CONTEXT_NAME));
 		} catch (LintException e) {
 			assertFalse(e.getMessage(), true);
 		} catch (TimeoutException e) {
@@ -76,8 +82,7 @@ public class LintUserTest extends UnitTest {
 	@Test
 	public void testLogoutWrongUser() {
 		try {
-			Object resp = LintRobot.logout(1l, context);
-			assertFalse(resp.toString(), true);
+			assertFalse(PlintRobot.getInstance().logout(1l, CONTEXT_NAME));
 		} catch (LintException e) {
 			assertTrue(e.getMessage(), true);
 		} catch (TimeoutException e) {
@@ -88,25 +93,23 @@ public class LintUserTest extends UnitTest {
 	@Test
 	public void testCreateUserNoProfiles() {
 		try {
-			JsonElement resp = LintRobot.createUser("user1", "xisgest@xlm.pt", "user1", false, null, context);
-			assertTrue(resp.getAsJsonObject().get("login").getAsString().equals("user1"));
-			assertTrue(resp.getAsJsonObject().get("name").getAsString().equals("user1"));
-
+			LSUser createUser = PlintRobot.getInstance().createUser("user1", "xisgest@xlm.pt", "user1", false, null, CONTEXT_NAME);
+			assertEquals("user1", createUser.name);
+			assertEquals("user1", createUser.login);
 		} catch (LintException e) {
 			assertFalse(e.getMessage(), true);
-			e.printStackTrace();
 		} catch (TimeoutException e) {
 			assertFalse(e.getMessage(), true);
-			e.printStackTrace();
 		}
 	}
 
 	@Test
 	public void testCreateExistentUser() {
 		try {
-			LintRobot.createUser("user1", "xisgest@xlm.pt", "user1", "user1");
-			JsonElement user2 = LintRobot.createUser("user1", "xisgest@xlm.pt", "user1", context);
-			assertFalse(user2.isJsonObject());
+			LSUser createUser1 = PlintRobot.getInstance().createUser("user1", "xisgest@xlm.pt", "user1", CONTEXT_NAME);
+			assertNotNull(createUser1);
+			LSUser createUser2 = PlintRobot.getInstance().createUser("user1", "xisgest@xlm.pt", "user1", CONTEXT_NAME);
+			assertNull(createUser2);
 		} catch (LintException e) {
 			assertTrue(e.getMessage(), true);
 		} catch (TimeoutException e) {
@@ -118,10 +121,11 @@ public class LintUserTest extends UnitTest {
 	@Test
 	public void testRegisterUser() {
 		try {
-			JsonElement resp = LintRobot.createUser("user1", "xisgest@xlm.pt", "user1", context);
-			String token = resp.getAsJsonObject().get("token").getAsString();
-			JsonElement respReg = LintRobot.registerUser("ola123", token, context);
-			assertTrue(respReg.getAsJsonObject().get("name").getAsString().equals("user1"));
+			LSUser createUser = PlintRobot.getInstance().createUser("user1", "xisgest@xlm.pt", "user1", CONTEXT_NAME);
+			assertNotNull(createUser);
+			assertNotNull(createUser.token);
+			LSUser registerUser = PlintRobot.getInstance().registerUser("ola123", createUser.token, CONTEXT_NAME);
+			assertEquals("user1", createUser.name);
 		} catch (LintException e) {
 			assertFalse(e.getMessage(), true);
 		} catch (TimeoutException e) {
@@ -133,9 +137,9 @@ public class LintUserTest extends UnitTest {
 	@Test
 	public void testRegisterInvalidToken() {
 		try {
-			LintRobot.createUser("user1", "xisgest@xlm.pt", "user1", context);
-			JsonElement resp = LintRobot.registerUser("ola123", "thisisaninvalidtoken", context);
-			assertFalse(resp.isJsonObject());
+			PlintRobot.getInstance().createUser("user1", "xisgest@xlm.pt", "user1", CONTEXT_NAME);
+			LSUser registerUser = PlintRobot.getInstance().registerUser("ola123", "thisisaninvalidtoken", CONTEXT_NAME);
+			assertNull(registerUser);
 		} catch (LintException e) {
 			assertTrue(e.getMessage(), true);
 		} catch (TimeoutException e) {
@@ -144,41 +148,33 @@ public class LintUserTest extends UnitTest {
 
 	}
 
-	@Test
-	public void testActivateUser() {
-
-		String[] profiles = new String[1];
-		profiles[0] = "guest";
-		JsonElement user;
-		try {
-			user = LintRobot.createUser("user9", "xisgest@xlm.pt", "user1", false, profiles, context);
-			Long id = user.getAsJsonObject().get("id").getAsLong();
-			String token = user.getAsJsonObject().get("token").getAsString();
-			LintRobot.registerUser("ola123", token, context);
-			LintRobot.deactivateUser(id, context);
-			JsonElement resp = LintRobot.activateUser(id, context);
-			assertTrue(resp.getAsJsonObject().get("name").getAsString().equals("user1"));
-		} catch (LintException e) {
-			assertFalse(e.getMessage(), true);
-		} catch (TimeoutException e) {
-			assertFalse(e.getMessage(), true);
-		}
-	}
+	//	@Test
+	//	public void testActivateUser() {
+	//		try {
+	//			LSUser createUser = PlintRobot.getInstance().createUser("user9", "xisgest@xlm.pt", "user1", false, new String[]{"guest"}, CONTEXT_NAME);
+	//			assertNotNull(createUser);
+	//			assertNotNull(createUser.token);
+	//			LSUser registerUser = PlintRobot.getInstance().registerUser("ola123", createUser.token, CONTEXT_NAME);
+	//			LSUser activateUser = PlintRobot.getInstance().activateUser(createUser.id, CONTEXT_NAME);
+	//			assertNotNull(activateUser);
+	//			assertEquals("user1", activateUser.login);
+	//		} catch (LintException e) {
+	//			assertFalse(e.getMessage(), true);
+	//		} catch (TimeoutException e) {
+	//			assertFalse(e.getMessage(), true);
+	//		}
+	//	}
 
 	@Test
 	public void testActivateActiveUser() {
-
-		String[] profiles = new String[1];
-		profiles[0] = "admin";
-		JsonElement user;
 		try {
-			user = LintRobot.createUser("user9", "xisgest@xlm.pt", "user1", false, profiles, context);
-			Long id = user.getAsJsonObject().get("id").getAsLong();
-			String token = user.getAsJsonObject().get("token").getAsString();
-			LintRobot.registerUser("ola123", token, context);
-			JsonElement resp = LintRobot.activateUser(id, context);
-			assertFalse(resp.isJsonObject());
-
+			LSUser createUser = PlintRobot.getInstance().createUser("user9", "xisgest@xlm.pt", "user1", false, new String[]{"admin"}, CONTEXT_NAME);
+			assertNotNull(createUser);
+			assertNotNull(createUser.id);
+			assertNotNull(createUser.token);
+			PlintRobot.getInstance().registerUser("ola123", createUser.token, CONTEXT_NAME);
+			LSUser activateUser = PlintRobot.getInstance().activateUser(createUser.id, CONTEXT_NAME);
+			assertNull(activateUser);
 		} catch (LintException e) {
 			assertTrue(e.getMessage(), true);
 		} catch (TimeoutException e) {
@@ -189,12 +185,14 @@ public class LintUserTest extends UnitTest {
 	@Test
 	public void testDeactivateUser() {
 		try {
-			JsonElement user = LintRobot.createUser("user1", "xisgest@xlm.pt", "user1", context);
-			Long id = user.getAsJsonObject().get("id").getAsLong();
-			String token = user.getAsJsonObject().get("token").getAsString();
-			LintRobot.registerUser("ola123", token, context);
-			JsonElement resp = LintRobot.deactivateUser(id, context);
-			assertTrue(resp.getAsJsonObject().get("name").getAsString().equals("user1"));
+			LSUser createUser = PlintRobot.getInstance().createUser("user1", "xisgest@xlm.pt", "user1", CONTEXT_NAME);
+			assertNotNull(createUser);
+			assertNotNull(createUser.id);
+			assertNotNull(createUser.token);
+			LSUser registerUser = PlintRobot.getInstance().registerUser("ola123", createUser.token, CONTEXT_NAME);
+			LSUser deactivateUser = PlintRobot.getInstance().deactivateUser(registerUser.id, CONTEXT_NAME);
+			assertNotNull(deactivateUser);
+			assertEquals("user1", deactivateUser.name);
 		} catch (LintException e) {
 			assertFalse(e.getMessage(), true);
 		} catch (TimeoutException e) {
@@ -205,10 +203,11 @@ public class LintUserTest extends UnitTest {
 	@Test
 	public void testDeactivateNonRegistedUser() {
 		try {
-			JsonElement user = LintRobot.createUser("user1", "xisgest@xlm.pt", "user1", context);
-			Long id = user.getAsJsonObject().get("id").getAsLong();
-			JsonElement resp = LintRobot.deactivateUser(id, context);
-			assertFalse(resp.isJsonObject());
+			LSUser createUser = PlintRobot.getInstance().createUser("user1", "xisgest@xlm.pt", "user1", CONTEXT_NAME);
+			assertNotNull(createUser);
+			assertNotNull(createUser.id);
+			LSUser deactivateUser = PlintRobot.getInstance().deactivateUser(createUser.id, CONTEXT_NAME);
+			assertNotNull(deactivateUser);
 		} catch (LintException e) {
 			assertTrue(e.getMessage(), true);
 		} catch (TimeoutException e) {
@@ -219,10 +218,12 @@ public class LintUserTest extends UnitTest {
 	@Test
 	public void testReactivateUser() {
 		try {
-			JsonElement user = LintRobot.createUser("user1", "xisgest@xlm.pt", "user1", context);
-			Long id = user.getAsJsonObject().get("id").getAsLong();
-			JsonElement resp = LintRobot.reactivateUser(id, context);
-			assertTrue(resp.getAsJsonObject().get("name").getAsString().equals("user1"));
+			LSUser createUser = PlintRobot.getInstance().createUser("user1", "xisgest@xlm.pt", "user1", CONTEXT_NAME);
+			assertNotNull(createUser);
+			assertNotNull(createUser.id);
+			LSUser reactivateUser = PlintRobot.getInstance().reactivateUser(createUser.id, CONTEXT_NAME);
+			assertNotNull(reactivateUser);
+			assertEquals("user1", reactivateUser.name);
 		} catch (LintException e) {
 			assertFalse(e.getMessage(), true);
 		} catch (TimeoutException e) {
@@ -233,8 +234,8 @@ public class LintUserTest extends UnitTest {
 	@Test
 	public void testListUsers() {
 		try {
-			JsonElement resp = LintRobot.getUsers(context);
-			assertTrue(resp.isJsonArray());
+			ArrayList<LSUser> users = PlintRobot.getInstance().getUsers(CONTEXT_NAME);
+			assertNotNull(users);
 		} catch (LintException e) {
 			assertFalse(e.getMessage(), true);
 		} catch (TimeoutException e) {
@@ -244,13 +245,14 @@ public class LintUserTest extends UnitTest {
 
 	@Test
 	public void testGetUser() {
-		JsonElement user;
 		try {
-			user = LintRobot.createUser("user1", "xisgest@xlm.pt", "user1", context);
-			Long id = user.getAsJsonObject().get("id").getAsLong();
-			JsonElement resp = LintRobot.showUser(id, context);
-			assertTrue(resp.getAsJsonObject().get("login").getAsString().equals("user1"));
-			assertTrue(resp.getAsJsonObject().get("name").getAsString().equals("user1"));
+			LSUser createUser = PlintRobot.getInstance().createUser("user1", "xisgest@xlm.pt", "user1", CONTEXT_NAME);
+			assertNotNull(createUser);
+			assertNotNull(createUser.id);
+			LSUser user = PlintRobot.getInstance().getUser(createUser.id, CONTEXT_NAME);
+			assertNotNull(user);
+			assertEquals("user1", user.login);
+			assertEquals("user1", user.name);
 		} catch (LintException e) {
 			assertFalse(e.getMessage(), true);
 		} catch (TimeoutException e) {
@@ -261,8 +263,8 @@ public class LintUserTest extends UnitTest {
 	@Test
 	public void testListUnexistentUser() {
 		try {
-			JsonElement resp = LintRobot.showUser(1l, context);
-			assertFalse(resp.isJsonObject());
+			LSUser user = PlintRobot.getInstance().getUser(1l, CONTEXT_NAME);
+			assertNull(user);
 		} catch (LintException e) {
 			assertTrue(e.getMessage(), true);
 		} catch (TimeoutException e) {
@@ -273,11 +275,13 @@ public class LintUserTest extends UnitTest {
 	@Test
 	public void testUpdateUserDefault() {
 		try {
-			JsonElement user = LintRobot.createUser("user1", "xisgest@xlm.pt", "user1", context);
-			Long id = user.getAsJsonObject().get("id").getAsLong();
-			JsonElement resp = LintRobot.updateUser(id, "user2", "xisgest@xlm.pt", "user1", context);
-			assertTrue(resp.getAsJsonObject().get("login").getAsString().equals("user2"));
-			assertTrue(resp.getAsJsonObject().get("email").getAsString().equals("xisgest@xlm.pt"));
+			LSUser createUser = PlintRobot.getInstance().createUser("user1", "xisgest@xlm.pt", "user1", CONTEXT_NAME);
+			assertNotNull(createUser);
+			assertNotNull(createUser.id);
+
+			LSUser updateUser = PlintRobot.getInstance().updateUser(createUser.id, "user2", "xisgest@xlm.pt", "user1", CONTEXT_NAME);
+			assertEquals("user2", updateUser.login);
+			assertEquals("xisgest@xlm.pt", updateUser.email);
 		} catch (LintException e) {
 			assertFalse(e.getMessage(), true);
 		} catch (TimeoutException e) {
@@ -287,14 +291,13 @@ public class LintUserTest extends UnitTest {
 
 	@Test
 	public void testUpdateUser() {
-		String[] profiles = { "guest" };
-
 		try {
-			JsonElement user = LintRobot.createUser("user1", "xisgest@xlm.pt", "user1", false, profiles, context);
-			Long id = user.getAsJsonObject().get("id").getAsLong();
-			JsonElement resp = LintRobot.updateUser(id, "user2", "xisgest@xlm.pt", "user1", false, profiles, context);
-			assertTrue(resp.getAsJsonObject().get("login").getAsString().equals("user2"));
-			assertTrue(resp.getAsJsonObject().get("email").getAsString().equals("xisgest@xlm.pt"));
+			LSUser createUser = PlintRobot.getInstance().createUser("user1", "xisgest@xlm.pt", "user1", false, new String[]{"guest"}, CONTEXT_NAME);
+			assertNotNull(createUser);
+			assertNotNull(createUser.id);
+			LSUser updateUser = PlintRobot.getInstance().updateUser(createUser.id, "user2", "xisgest@xlm.pt", "user1", false, new String[]{"guest"}, CONTEXT_NAME);
+			assertEquals("user2", updateUser.login);
+			assertEquals("xisgest@xlm.pt", updateUser.email);
 		} catch (LintException e) {
 			assertFalse(e.getMessage(), true);
 		} catch (TimeoutException e) {
@@ -305,11 +308,12 @@ public class LintUserTest extends UnitTest {
 	@Test
 	public void testUpdateUserNoProfiles() {
 		try {
-			JsonElement user = LintRobot.createUser("user1", "xisgest@xlm.pt", "user1", false, null, context);
-			Long id = user.getAsJsonObject().get("id").getAsLong();
-			JsonElement resp = LintRobot.updateUser(id, "user2", "xisgest@xlm.pt", "user1", false, null, context);
-			assertTrue(resp.getAsJsonObject().get("login").getAsString().equals("user2"));
-			assertTrue(resp.getAsJsonObject().get("email").getAsString().equals("xisgest@xlm.pt"));
+			LSUser createUser = PlintRobot.getInstance().createUser("user1", "xisgest@xlm.pt", "user1", false, null, CONTEXT_NAME);
+			assertNotNull(createUser);
+			assertNotNull(createUser.id);
+			LSUser updateUser = PlintRobot.getInstance().updateUser(createUser.id, "user2", "xisgest@xlm.pt", "user1", false, null, CONTEXT_NAME);
+			assertEquals("user2", updateUser.login);
+			assertEquals("xisgest@xlm.pt", updateUser.email);
 		} catch (LintException e) {
 			assertFalse(e.getMessage(), true);
 		} catch (TimeoutException e) {
@@ -320,8 +324,8 @@ public class LintUserTest extends UnitTest {
 	@Test
 	public void testUpdateUnexistentUser() {
 		try {
-			JsonElement resp = LintRobot.updateUser(1l, "user2", "xisgest@xlm.pt", "user1", context);
-			assertFalse(resp.isJsonObject());
+			LSUser updateUser = PlintRobot.getInstance().updateUser(1l, "user2", "xisgest@xlm.pt", "user1", CONTEXT_NAME);
+			assertNull(updateUser);
 		} catch (LintException e) {
 			assertTrue(e.getMessage(), true);
 		} catch (TimeoutException e) {

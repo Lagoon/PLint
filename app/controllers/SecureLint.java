@@ -28,7 +28,6 @@ public class SecureLint extends Controller {
 
 	@Before(unless = { "login", "authenticate", "logout", "register", "registerUser" })
 	static void checkAccess() throws Throwable {
-
 		Lintity.invoke("beforeCheckAccess");
 
 		if(getControllerAnnotation(Unsheltered.class) != null){
@@ -46,7 +45,7 @@ public class SecureLint extends Controller {
 			}
 
 			// Check Authorization
-			if (!PlintRobot.getInstance().checkRequest(request, Long.parseLong(session.get("id")), SubdomainCheck.currentSubdomain(request))) {
+			if (!PlintRobot.getInstance().checkRequest(request, Long.parseLong(session.get("id")), Lintity.currentContext())) {
 				Lintity.invoke("onCheckFailed");
 			}
 		}
@@ -70,14 +69,12 @@ public class SecureLint extends Controller {
 	}
 
 	public static void authenticate(@Required String username, String password, boolean remember) throws Throwable {
-		// Check tokens
 
 		Boolean allowed = (Boolean) Lintity.invoke("authenticate", username, password);
 
-		String context = SubdomainCheck.currentSubdomain(request);
 		if (allowed) {
 			try {
-				LSUser login = PlintRobot.getInstance().login(username, password, context);
+				LSUser login = PlintRobot.getInstance().login(username, password, Lintity.currentContext());
 				if (login != null) {
 					session.put("id", login.id);
 				}
@@ -107,10 +104,8 @@ public class SecureLint extends Controller {
 	}
 
 	public static void logout() throws Throwable {
-		String context = SubdomainCheck.currentSubdomain(request);
 		Lintity.invoke("onDisconnect");
-		PlintRobot.getInstance().logout(Long.parseLong(session.get("id")), context);
-		//		LintRobot.logout(Long.parseLong(session.get("id")), context);
+		PlintRobot.getInstance().logout(Long.parseLong(session.get("id")), Lintity.currentContext());
 		session.clear();
 		response.removeCookie("rememberme");
 		Lintity.invoke("onDisconnected");
@@ -156,6 +151,15 @@ public class SecureLint extends Controller {
 		}
 
 		/**
+		 * computes current subdomain
+		 * 
+		 * @return subdomain name
+		 */
+		public static String currentContext(){
+			return SubdomainCheck.currentSubdomain(request);
+		}
+
+		/**
 		 * This method is called during the authentication process. This is where you check if the user is allowed to log in into the system. This is
 		 * the actual authentication process against a third party system (most of the time a DB).
 		 * 
@@ -174,7 +178,7 @@ public class SecureLint extends Controller {
 		 * @return
 		 */
 		static String connected() {
-			return session.get("username");
+			return session.get("id");
 		}
 
 		/**
@@ -189,7 +193,7 @@ public class SecureLint extends Controller {
 		 * @return true if the user is connected
 		 */
 		static boolean isConnected() {
-			return session.contains("username");
+			return session.contains("id");
 		}
 
 		/**

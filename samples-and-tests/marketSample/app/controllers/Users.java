@@ -7,7 +7,6 @@ import java.util.concurrent.TimeoutException;
 import lagoon.PlintRobot;
 import ls.LSProfile;
 import ls.LSUser;
-import models.Profile;
 import models.User;
 import play.data.validation.Valid;
 import play.i18n.Messages;
@@ -40,7 +39,7 @@ public class Users extends Application {
 
 	public static void showUser(Long id) throws LintException, TimeoutException {
 		User entity = User.findById(id);
-		LSUser resp = PlintRobot.getInstance().showUser(entity.externalID, Lintity.currentContext());
+		LSUser resp = PlintRobot.getInstance().getUser(entity.externalID, Lintity.currentContext());
 		entity = User.findByExternalID(resp.id);
 		render(entity);
 	}
@@ -56,46 +55,39 @@ public class Users extends Application {
 
 	public static void deactivate(Long id) throws TimeoutException, LintException {
 		User user = User.findById(id);
-		PlintRobot.getInstance().deactivateUser(user.externalID, user.context.name);
+		PlintRobot.getInstance().deactivateUser(user.externalID, Lintity.currentContext());
 		doFlashSuccess("User deactivated");
 		index();
 	}
 
 	public static void delete(Long id) throws TimeoutException, LintException {
 		User user = User.findById(id);
-		PlintRobot.getInstance().deleteUser(user.externalID, user.context.name);
+		PlintRobot.getInstance().deleteUser(user.externalID, Lintity.currentContext());
 		doFlashSuccess("User deleted");
 		index();
 	}
 
 	public static void activate(Long id) throws LintException, TimeoutException {
 		User user = User.findById(id);
-		PlintRobot.getInstance().activateUser(user.externalID, user.context.name);
+		PlintRobot.getInstance().activateUser(user.externalID, Lintity.currentContext());
 		doFlashSuccess("User activated");
 		index();
 	}
 
 	public static void reactivate(Long id) throws LintException, TimeoutException {
 		User user = User.findById(id);
-		PlintRobot.getInstance().reactivateUser(user.externalID, user.context.name);
+		PlintRobot.getInstance().reactivateUser(user.externalID, Lintity.currentContext());
 		doFlashSuccess("User reactivated");
 		index();
 	}
 
 	public static void edit(java.lang.Long id) throws LintException, TimeoutException {
 		User entity = User.findById(id);
+		notFoundIfNull(entity);
 
 		// get context profiles
 		ArrayList<LSProfile> profilesLagoon = PlintRobot.getInstance().getProfiles(Lintity.currentContext());
-
-		//		for (LSProfile p : profilesLagoon) {
-		//			Profile userProfile = Profile.findByExternalId(p.id);
-		//			if (userProfile == null) {
-		//				p.save();
-		//			}
-		//		}
-		List<Profile> profiles = Profile.all().fetch();
-		render(entity, profiles);
+		render(entity, profilesLagoon);
 	}
 
 	public static void update(@Valid User entity) throws LintException, TimeoutException {
@@ -104,11 +96,14 @@ public class Users extends Application {
 			render("@edit", entity);
 		}
 
-		List<Profile> profiles = new ArrayList<Profile>(entity.profiles);
-		String[] updateProfiles = new String[profiles.size()];
-		for (int i = 0; i < profiles.size(); i++) {
-			updateProfiles[i] = profiles.get(i).name;
-		}
+		//		PlintRobot.getInstance().updateUser();
+		//
+		//
+		//		List<Profile> profiles = new ArrayList<Profile>(entity.profiles);
+		//		String[] updateProfiles = new String[profiles.size()];
+		//		for (int i = 0; i < profiles.size(); i++) {
+		//			updateProfiles[i] = profiles.get(i).name;
+		//		}
 
 		//		JsonElement resp = PlintRobot.getInstance().updateUser(entity.userLagoon.id, entity.userLagoon.login, entity.email, entity.name, false, updateProfiles, Lintity.currentContext().name);
 		//		Gson gson = new Gson();
